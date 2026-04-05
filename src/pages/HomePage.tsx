@@ -12,7 +12,13 @@ import {
 import { DataTable } from "@/components/SubnetsTable copy";
 
 import { type ColumnDef } from "@tanstack/react-table";
-import { Edit, MoreHorizontal, MoreVertical, Trash } from "lucide-react";
+import {
+  ArrowUpDown,
+  Edit,
+  MoreHorizontal,
+  MoreVertical,
+  Trash,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,11 +40,31 @@ const HomePage = () => {
   const columns_test: ColumnDef<Subnet>[] = [
     {
       accessorKey: "name",
-      header: "Name",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Name
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
     },
     {
       accessorKey: "fullAddress",
-      header: "Subnet",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Address
+            <ArrowUpDown className="ml-2 h-4 w-4" />
+          </Button>
+        );
+      },
     },
     {
       accessorKey: "allocated_ips_percent",
@@ -58,11 +84,14 @@ const HomePage = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="">
-              <DropdownMenuItem><Edit/> Edite</DropdownMenuItem>
+              <DropdownMenuItem>
+                <Edit /> Edite
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="text-red-500">
-                <Trash/>
-                 Delete</DropdownMenuItem>
+                <Trash />
+                Delete
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         );
