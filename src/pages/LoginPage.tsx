@@ -1,7 +1,8 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
-import Input from "../components/Input";
+import FormInput from "../components/FormInput";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import FormInput2 from "@/components/FloutingInut";
 
 type logInFormSchemaType = {
   userName: string;
@@ -26,17 +27,18 @@ const LoginPage = () => {
         </CardTitle>
         <CardContent>
           <form className="flex flex-col w-96 gap-4">
-            <Input
+            <FormInput
               {...form.register("userName", { required: "Input is required" })}
               error={form.formState.errors.userName?.message}
               label="Username"
             />
-            <Input
+            <FormInput2
               {...form.register("password", { required: "Input is required" })}
               error={form.formState.errors.password?.message}
               label="Password"
               type="password"
             />
+       
 
             <Button
               type="submit"
