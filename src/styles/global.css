@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Irish Grover');
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
+
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+@custom-variant dark (&:is(.dark *));
+
+
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
+
+@layer base {
+
+    :root {
+
+        /* Color configuration */
+        --color-primary-50: #FEDEBE;
+        --color-primary-100: #FFAF42;
+        --color-primary-200: #FF990F;
+        --color-primary-300: #FE6E00;
+        --color-primary-400: #FD5602;
+
+        --color-address-free: #A6D997;
+        --color-address-dynamic: #80E0E5;
+        --color-address-reserved: #FFBB4F;
+        --color-address-allocated: #A6D997;
+        --color-address-remaining: #8baa8246;
+
+        /* Text colors */
+        --color-primary-text: #1F2937;
+        --color-secondary-text: #6B7280;
+
+        /* BG colors */
+        --color-container-bg-basic: #FFFFFF;
+        --color-container-bg-transparent: rgba(255, 255, 255, 0.25);
+
+        /* Status colors */
+        --color-status-info: #3B82F6;
+        --color-status-success: #22C55E;
+        --color-status-warning: #F59E0B;
+        --color-status-error: #EF4444;
+
+        /* SidBar colors */
+        --color-sid-bar-bg: #FFFFFF;
+        --color-sid-bar-primary-text: #1F2937;
+        --color-sid-bar-secondary-text: #6B7280;
+        --color-sid-bar-active-bg: rgba(255, 243, 232, 0.8);
+        --color-sid-bar-haver-bg: rgba(255, 243, 232, 0.5);
+
+        /* Form colors */
+        --color-form-bg: #FFFFFF;
+        --color-form-primary-text: #1F2937;
+    }
+
+
+    /* Color configuration for Dark Mode*/
+    .dark {
+
+        /* Text colors */
+        --color-primary-text: #1F2937;
+
+        /* BG colors */
+        --color-container-bg-basic: #1f2020;
+
+        /* SidBar colors */
+        --color-sid-bar-bg: #1F2937;
+        --color-sid-bar-primary-text: #FFFFFF;
+        --color-sid-bar-secondary-text: #CCCCCC;
+
+        /* Form colors */
+        --color-form-bg: #1F2937;
+        --color-form-primary-text: #FFFFFF;
+    }
+}
+
+.app-bg {
+    background: linear-gradient(50deg,
+            #FFAF42 2%,
+            #FB7185 40%,
+            #FB7185 100%);
+}
