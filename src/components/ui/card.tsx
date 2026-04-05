@@ -36,7 +36,7 @@ function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="card-title"
-      className={cn("text-3xl font-bold", className)}
+      className={cn("text-base leading-normal font-bold group-data-[size=sm]/card:text-sm", className)}
       {...props}
     />
   );
@@ -70,7 +70,7 @@ function CardContent({ className, ...props }: React.ComponentProps<"div">) {
     <div
       data-slot="card-content"
       className={cn(
-        "px-6 group-data-[size=sm]/card:px-4",
+        "px-1 group-data-[size=sm]/card:px-4",
         "flex flex-col h-full gap-1",
         className,
       )}

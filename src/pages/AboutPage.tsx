@@ -1,17 +1,13 @@
 import {
   Card,
-  CardAction,
   CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 
 const AboutPage = () => {
   return (
     <Card className="flex flex-col h-full gap-1 text-primary-text">
-      <CardTitle className=" mb-6">Introduction</CardTitle>
+      <CardTitle className="mb-6"><h1 className="text-3xl">Introduction</h1></CardTitle>
       <CardContent>
         <p className="">
           ALMOND IP address management (IPAM) helps you effectively monitor your
