@@ -11,6 +11,7 @@ const buttonVariants = cva(
       variant: {
         primary: "bg-container-bg-basic text-primary ",
         secondary: "border-2 border-container-bg-basic bg-transparent text-container-bg-basic",
+        ghost:"hover:bg-container-bg-basic/20 data-[state=open]:bg-container-bg-basic/20",
         form: "bg-primary text-primary-text hover:bg-primary-light",
       },
       size: {
