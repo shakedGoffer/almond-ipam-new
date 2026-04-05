@@ -1,10 +1,15 @@
 
+import SubnetsTable from "@/components/SubnetsTable";
 import fakeData from "../../fakeData/fakeData"
 import AddressAvailability from "../components/AddressAvailability";
 import AddressSummary from "../components/AddressSummary";
 import Table from "../components/Table";
 import TotalsPieChart from "../components/TotalsPieChart";
-import { formatSubnetsData, countTotalAddresses } from "../lib/utils/dataUtils";
+import { formatSubnetsData, countTotalAddresses, type Subnet } from "../lib/utils/dataUtils";
+import { DataTable } from "@/components/SubnetsTable copy";
+
+import { type ColumnDef } from '@tanstack/react-table';
+
 
 const HomePage = () => {
 
@@ -14,6 +19,21 @@ const HomePage = () => {
     { Header: "Subnet", accessor: "fullAddress" },
     { Header: "Usage", accessor: "allocated_ips_percent" },
   ];
+
+  const columns_test: ColumnDef<Subnet>[] = [
+    {
+      accessorKey: "name",
+      header: "Name",
+    },
+    {
+      accessorKey: "fullAddress",
+      header: "Subnet",
+    },
+    {
+      accessorKey: "allocated_ips_percent",
+      header: "Usage",
+    },
+  ]
 
 
 
@@ -44,6 +64,8 @@ const HomePage = () => {
           Top 10 Subnets By Usage
         </h1>
         <Table columns={columns} data={subnetsList} className="" />
+        <SubnetsTable columns={columns} data={subnetsList}/>
+        <DataTable columns={columns_test} data={subnetsList} />
       </div>
     </div>
   );
