@@ -1,80 +1,52 @@
-import SubnetsTable from "@/components/SubnetsTable";
 import fakeData from "../../fakeData/fakeData";
 import AddressAvailability from "../components/AddressAvailability";
 import AddressSummary from "../components/AddressSummary";
-import Table from "../components/Table";
 import TotalsPieChart from "../components/TotalsPieChart";
 import {
   formatSubnetsData,
   countTotalAddresses,
   type Subnet,
 } from "../lib/utils/dataUtils";
-import { DataTable } from "@/components/SubnetsTable copy";
+import { DataTable } from "@/components/customeTable/Table";
 
 import { type ColumnDef } from "@tanstack/react-table";
-import {
-  ArrowUpDown,
-  Edit,
-  MoreHorizontal,
-  MoreVertical,
-  Trash,
-} from "lucide-react";
+import { Edit, MoreVertical, Trash } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import DataTableColumnHeader from "@/components/customeTable/DataTableColumnHeader";
 
 const HomePage = () => {
-  const columns = [
-    { Header: "Name", accessor: "name" },
-    { Header: "Subnet", accessor: "fullAddress" },
-    { Header: "Usage", accessor: "allocated_ips_percent" },
-  ];
 
-  const columns_test: ColumnDef<Subnet>[] = [
+  const subnetsColumns: ColumnDef<Subnet>[] = [
     {
       accessorKey: "name",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Name
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} sort title="Name" />
+      ),
     },
     {
       accessorKey: "fullAddress",
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-          >
-            Address
-            <ArrowUpDown className="ml-2 h-4 w-4" />
-          </Button>
-        );
-      },
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} sort title="Address" />
+      ),
     },
     {
+      id: "usage",
       accessorKey: "allocated_ips_percent",
-      header: "Usage",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} sort title="Usage" />
+      ),
     },
-
     {
       id: "actions",
-      cell: ({ row }) => {
-        const subnet = row.original;
+      cell: () => {
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -128,9 +100,7 @@ const HomePage = () => {
         <h1 className="text-xl font-bold mb-4 text-center text-primary-text">
           Top 10 Subnets By Usage
         </h1>
-        <Table columns={columns} data={subnetsList} className="" />
-        <SubnetsTable columns={columns} data={subnetsList} />
-        <DataTable columns={columns_test} data={subnetsList} />
+        <DataTable columns={subnetsColumns} data={subnetsList} />
       </div>
     </div>
   );

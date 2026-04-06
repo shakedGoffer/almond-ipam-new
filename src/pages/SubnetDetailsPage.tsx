@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import fakeData from "../../fakeData/fakeData";
 import { formatAddressesData, type Subnet } from "@/lib/utils/dataUtils";
 import Divider from "../components/Divider";
-import Table from "../components/Table";
+
 import SearchBar from "../components/SearchBar";
 import { Button } from "@/components/ui/button";
 import { ChevronsLeft, Edit, Plus, TrashIcon } from "lucide-react";
@@ -12,12 +12,7 @@ const SubnetDetailsPage = () => {
   const { subnetAddress } = useParams();
   const subnet: Subnet = fakeData[subnetAddress];
 
-  const columns = [
-    { Header: "Address", accessor: "address" },
-    { Header: "Description", accessor: "address_description" },
-    { Header: "Mac", accessor: "mac_address" },
-    { Header: "Type", accessor: "type" },
-  ];
+
 
   return (
     <div className="flex flex-col flex-1 min-w-min gap-6">
@@ -63,10 +58,7 @@ const SubnetDetailsPage = () => {
 
       <div className="flex flex-col gap-4">
         <SearchBar />
-        <Table
-          data={formatAddressesData(subnet.allocated_ips)}
-          columns={columns}
-        />
+        
       </div>
     </div>
   );
