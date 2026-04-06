@@ -1,6 +1,6 @@
 import { BookOpenText, Home, Network } from "lucide-react";
-import Sidebar from "@/features/Sidebar";
-import { SidebarProvider } from "@/features/Sidebar/SidebarProvider";
+import Sidebar from "@/components/Sidebar";
+import { SidebarProvider } from "@/components/Sidebar/SidebarProvider";
 import { Outlet } from "react-router-dom";
 
 const SidebarLayout = () => {

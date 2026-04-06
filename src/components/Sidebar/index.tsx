@@ -1,4 +1,4 @@
-import Logo from "../../components/Logo";
+import Logo from "../Logo";
 import { cn } from '@/lib/utils/cn';
 import ThemeSwitch from "./ThemeSwitch";
 import LogoutButton from "./LogoutButton";
