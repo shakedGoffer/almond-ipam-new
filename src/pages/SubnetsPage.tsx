@@ -15,8 +15,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DataTableColumnHeader from "@/components/customeTable/DataTableColumnHeader";
-import { DataTable } from "@/components/customeTable/Table";
+import DataTableColumnHeader from "@/components/DataTable/DataTableColumnHeader";
+import { DataTable } from "@/components/DataTable/Table";
 import { Link } from "react-router-dom";
 
 const SubnetPage = () => {

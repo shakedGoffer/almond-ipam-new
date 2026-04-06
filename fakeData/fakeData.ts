@@ -12,7 +12,7 @@ const data ={
             "20.20.20.10": {
                 "address_description": "test-host1",
                 "mac_address": "00:1B:44:11:3A:B7",
-                "type": "dynamic"
+                "type": "reserved"
             },
             "20.20.20.11": {
                 "address_description": "test-host1",

@@ -7,7 +7,7 @@ import {
   countTotalAddresses,
   type Subnet,
 } from "../lib/utils/dataUtils";
-import { DataTable } from "@/components/customeTable/Table";
+import { DataTable } from "@/components/DataTable/Table";
 
 import { type ColumnDef } from "@tanstack/react-table";
 import { Edit, MoreVertical, Trash } from "lucide-react";
@@ -20,7 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DataTableColumnHeader from "@/components/customeTable/DataTableColumnHeader";
+import DataTableColumnHeader from "@/components/DataTable/DataTableColumnHeader";
 
 const HomePage = () => {
 
