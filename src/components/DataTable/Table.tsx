@@ -115,10 +115,10 @@ function DataTableCell<TData>({ cell }: { cell: Cell<TData, unknown> }) {
   return (
     <TableCell
       className={cn(
-        "px-4 min-w-36",
+        "px-6 min-w-36",
         cellID === "usage" && "min-w-50",
         (cellID === "actions" || cellID === "more") &&
-          "w-fit text-center px-1 min-w-0 w-10",
+          "w-fit text-center px-2 min-w-0 w-10",
       )}
     >
       {cellContent({ cellID })}
