@@ -41,21 +41,24 @@ const FormInput = forwardRef<HTMLInputElement, InputProps>(
             placeholder=" "
             {...props}
             className={cn(
-              "py-5 pt-6 text-form-primary-text bg-form-bg border appearance-none focus:outline-none focus:ring-0 peer peer pr-9",
+              "py-5 pt-6 text-form-primary-text bg-form-bg border appearance-none focus:outline-none focus:ring-0 peer peer",
               error
                 ? "border-status-error focus:border-status-error"
                 : "border-gray-300 focus:border-primary",
+              icon ? "pr-12" : "pr-3",
               className,
             )}
           />
-
-          <div
-            className={cn(
-              "text-secondary-text absolute inset-y-0 right-0 flex items-center justify-center pr-3 mt-1 peer-disabled:opacity-50",
-              error ? "text-status-error" : "peer-focus:text-primary",
-            )}>
-            {icon}
-          </div>
+          {icon && (
+            <div
+              className={cn(
+                "text-secondary-text absolute inset-y-0 right-0 flex items-center justify-center pr-3 mt-1 peer-disabled:opacity-50",
+                error ? "text-status-error" : "peer-focus:text-primary",
+              )}
+            >
+              {icon}
+            </div>
+          )}
         </div>
         {error && (
           <p className="text-xs text-status-error mt-1.5 ml-1">{error}</p>
