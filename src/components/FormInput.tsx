@@ -16,8 +16,8 @@ const FormInput = forwardRef<HTMLInputElement, InputProps>(
     const id = useId();
 
     return (
-      <div>
-        <div className="group relative w-full">
+      <div className="">
+        <div className="group relative">
           <label
             htmlFor={id}
             className={cn(
@@ -61,7 +61,7 @@ const FormInput = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
         {error && (
-          <p className="text-xs text-status-error mt-1.5 ml-1">{error}</p>
+          <p className="text-xs text-status-error mt-1.5 ml-1 max-w-sm">{error}</p>
         )}
       </div>
     );

@@ -7,19 +7,46 @@ import {
 } from "@/components/ui/dialog";
 import FormInput from "@/components/FormInput";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { Network } from "lucide-react";
+import { BookOpen, Globe, Network, Server } from "lucide-react";
+
+import * as z from "zod";
+import { zodResolver } from '@hookform/resolvers/zod';
 
 type FormSchemaType = {
   subnetName: string;
   subnetDescription: string;
   subnetAddress: string;
   subnetCIDR: string;
+  subnetGateway: string;
+  dnsServers: string;
 };
 
-const CreateSubnetDialogForm = ({ title }: { title: string }) => {
-  const form = useForm<FormSchemaType>();
+const CreateSubnetFormSchema = z.object({
+  subnetName: z.string().min(3, "Subnet name must be at least 3 characters"),
+  subnetDescription: z
+    .string()
+    .max(100, "Subnet description must be less than 255 characters")
+    .optional(),
+  subnetAddress: z.ipv4("Invalid IPv4 address format"),
+  subnetCIDR: z.number("Invalid Input"),
+  subnetGateway: z.ipv4("Invalid IPv4 address format"),
+  dnsServers: z.string().refine((value) => {
+    const servers = value.split(",").map((s) => s.trim());
+    return servers.every((s) => z.ipv4().safeParse(s).success);
+  }, "Invalid DNS servers format (Notice: you can usa a comma to separate IPv4 DNS servers addresses)"),
+});
 
-  const onSubmit: SubmitHandler<FormSchemaType> = (data) => {
+type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
+
+const CreateSubnetDialogForm = ({ title }: { title: string }) => {
+  
+  const form_old = useForm<FormSchemaType>();
+
+  const form = useForm({
+    resolver: zodResolver(CreateSubnetFormSchema),
+  });
+
+  const onSubmit: SubmitHandler<CreateSubnetFormSchemaType> = (data) => {
     (async () => {
       // Do something before delay
       console.log("before delay");
@@ -32,42 +59,66 @@ const CreateSubnetDialogForm = ({ title }: { title: string }) => {
   };
 
   return (
-    <form className="flex flex-col gap-4">
+    <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)}>
       {/* Dialog Form, dissable dialog close on outside interaction */}
       <DialogContent
         onInteractOutside={(e) => {
           e.preventDefault();
         }}
-        className="w-md bg-form-bg"
+        className="bg-form-bg gap-4"
       >
         <DialogHeader>
-          <DialogTitle className="text-xl text-center capitalize font-bold">
+          <DialogTitle className="text-xl text-center capitalize font-bold ">
             {title}
           </DialogTitle>
         </DialogHeader>
 
-        <FormInput
-          {...form.register("subnetName", { required: "Input is required" })}
-          error={form.formState.errors.subnetName?.message}
-          label="Subnet Name"
-          icon={<Network className="size-5" />}
-        />
-        <FormInput
-          {...form.register("subnetDescription")}
-          error={form.formState.errors.subnetDescription?.message}
-          label="Subnet Description"
-        />
-        <div className="flex flex-row items-center">
+        <div className="flex flex-col py-3 gap-4">
           <FormInput
-            {...form.register("subnetAddress")}
-            error={form.formState.errors.subnetAddress?.message}
-            label="Subnet Address"
+            {...form.register("subnetName", { required: "Input is required" })}
+            error={form.formState.errors.subnetName?.message}
+            label="Subnet Name"
+            icon={<Network className="size-5" />}
+            placeholder="Name..."
           />
-          <span className="mx-3 text-secondary-text text-3xl ">/</span>
           <FormInput
-            {...form.register("subnetCIDR")}
-            error={form.formState.errors.subnetCIDR?.message}
-            label="CIDR"
+            {...form.register("subnetDescription")}
+            error={form.formState.errors.subnetDescription?.message}
+            label="Subnet Description"
+            icon={<BookOpen className="size-5" />}
+            placeholder="Description..."
+          />
+          <div className="flex flex-row flex-1 items-start gap-3">
+            <div className="flex-1">
+              <FormInput
+                {...form.register("subnetAddress")}
+                error={form.formState.errors.subnetAddress?.message}
+                label="Subnet Address"
+                placeholder="1.1.1.0..."
+              />
+            </div>
+            <span className="text-primary text-3xl ">/</span>
+            <FormInput
+              {...form.register("subnetCIDR")}
+              error={form.formState.errors.subnetCIDR?.message}
+              label="CIDR"
+              className="w-14"
+              placeholder="24..."
+            />
+          </div>
+          <FormInput
+            {...form.register("subnetGateway")}
+            error={form.formState.errors.subnetGateway?.message}
+            label="Subnet Gateway"
+            icon={<Globe className="size-5" />}
+            placeholder="1.1.1.254..."
+          />
+          <FormInput
+            {...form.register("dnsServers")}
+            error={form.formState.errors.dnsServers?.message}
+            label="Subnet DNS Servers"
+            icon={<Server className="size-5" />}
+            placeholder="1.1.1.1, 1.1.1.2..."
           />
         </div>
 
