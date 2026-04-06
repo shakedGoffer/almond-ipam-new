@@ -1,1 +1,6 @@
 - rechsrt
+- create button position in subnet page
+- form
+ login form
+ check on submit button not disabbleing on form louding
+ make dialog always in the middle
