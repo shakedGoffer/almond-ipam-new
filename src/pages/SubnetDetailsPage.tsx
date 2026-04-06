@@ -30,7 +30,6 @@ import { DataTable } from "@/components/DataTable/Table";
 const SubnetDetailsPage = () => {
   const { subnetAddress } = useParams();
   const subnet: Subnet = fakeData[subnetAddress];
-
   const subnetAddressesColumns: ColumnDef<Ip>[] = [
     {
       accessorKey: "address_description",
