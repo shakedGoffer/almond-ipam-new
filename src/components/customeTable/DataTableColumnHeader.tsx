@@ -28,6 +28,7 @@ function DataTableColumnHeader<TData, TValue>({
       {sort && (
         <Button
           variant="ghost"
+          className="p-3"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           <span>{title}</span>
