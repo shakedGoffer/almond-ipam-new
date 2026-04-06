@@ -57,7 +57,7 @@ export function DataTable<TData, TValue>({
       <Table>
         <TableHeader className="bg-container-bg-transparent">
           {table.getHeaderGroups().map((headerGroup) => (
-            <TableRow key={headerGroup.id} className="border-gray-300">
+            <TableRow key={headerGroup.id} className="border-gray-500/20">
               {headerGroup.headers.map((header) => (
                 <DataTableHeader key={header.id} header={header} />
               ))}
@@ -68,7 +68,7 @@ export function DataTable<TData, TValue>({
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
-                className="border-gray-300"
+                className="border-gray-500/20"
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
