@@ -11,7 +11,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const FormInput = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, type = "text", ...props }, ref) => {
+  ({ label, error, type = "text", className, ...props }, ref) => {
     const id = useId();
 
     return (
@@ -42,7 +42,7 @@ const FormInput = forwardRef<HTMLInputElement, InputProps>(
               "py-5 pt-6 text-form-primary-text bg-form-bg border appearance-none focus:outline-none focus:ring-0 peer",
               error
                 ? "border-status-error focus:border-status-error"
-                : "border-gray-300 focus:border-primary",
+                : "border-gray-300 focus:border-primary", className
             )}
           />
         </div>
