@@ -92,19 +92,36 @@ export function DataTable<TData, TValue>({
 
 function DataTableCell<TData>({ cell }: { cell: Cell<TData, unknown> }) {
   const cellID = cell.column.id;
+  const cellValue = cell.getValue() as string | number;
+  
+  const cellContent = ({ cellID }: { cellID: string }) => {
+    if (cellID === "usage") {
+      return <UsageBar usagePercentage={cellValue as number} />;
+    }
+    if (cellID === "type") {
+      return (
+        <div className="flex flex-row gap-2 items-center">
+          <div
+            className="size-4 rounded-sm"
+            style={{ backgroundColor: `var(--color-address-${cellValue}` }}
+          />
+          <span className="capitalize">{cellValue} </span>
+        </div>
+      );
+    }
+    return flexRender(cell.column.columnDef.cell, cell.getContext());
+  };
+
   return (
     <TableCell
       className={cn(
-        " px-4 min-w-36",
+        "px-4 min-w-36",
         cellID === "usage" && "min-w-50",
-        (cellID === "actions" || cellID === "more") && "w-fit text-center px-1 min-w-0 w-12",
+        (cellID === "actions" || cellID === "more") &&
+          "w-fit text-center px-1 min-w-0 w-10",
       )}
     >
-      {cellID === "usage" ? (
-        <UsageBar usagePercentage={cell.getValue() as number} />
-      ) : (
-        flexRender(cell.column.columnDef.cell, cell.getContext())
-      )}
+      {cellContent({ cellID })}
     </TableCell>
   );
 }
