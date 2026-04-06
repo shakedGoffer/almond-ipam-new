@@ -50,7 +50,7 @@ export function DataTable<TData, TValue>({
   return (
     <div
       className={cn(
-        "overflow-hidden rounded-lg bg-container-bg-transparent text-primary-text",
+        "overflow-hidden rounded-lg bg-container-bg-transparent text-primary-text min-w-fit",
         className,
       )}
     >
