@@ -65,7 +65,7 @@ const data ={
         "allocated_ips_percent": 70
     },
     "1.1.1.0": {
-        "name": "aaaa",
+        "name": "Subnet C",
         "description": "fdgfdg",
         "gateway": "1.1.1.2",
         "dns_servers": [],
