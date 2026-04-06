@@ -48,7 +48,7 @@ const SubnetPage = () => {
             <DropdownMenuTrigger asChild>
               <Button variant={"ghost"} className="h-8 w-8 p-0">
                 <span className="sr-only">Open menu</span>
-                <MoreVertical />
+                <MoreVertical className="size-4.5" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="">
@@ -73,7 +73,7 @@ const SubnetPage = () => {
         return (
           <Button asChild variant={"ghost"} className="h-8 w-8 p-0">
             <Link to={`/subnets/${subnet.address}`}>
-              <ChevronsRight />
+              <ChevronsRight className="size-4.5" />
             </Link>
           </Button>
         );
@@ -82,10 +82,10 @@ const SubnetPage = () => {
   ];
 
   return (
-    <div className="flex flex-col h-fill w-fill flex-1 gap-5 ">
-      <div className="flex flex-row justify-around gap-4">
+    <div className="flex flex-col h-fill w-fill flex-1 gap-6 w-full">
+      <div className="flex flex-row justify-around gap-10">
         <SearchBar />
-        <div className="">
+        <div className="flex flex-row flex-1 justify-end">
           <Button className="gap-1">
             <Plus />
             Create New Subnet
