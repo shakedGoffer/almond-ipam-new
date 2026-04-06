@@ -11,7 +11,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
     const { expanded } = useSidebar();
     return (
         <aside className={cn(
-            "relative flex flex-col bg-sid-bar-bg shadow-md transition-all duration-500 ease-in-out",
+            "relative flex flex-col bg-sid-bar-bg shadow-md transition-all duration-500 ease-in-out z-100",
             expanded ? "min-w-52" : "min-w-16" )}>
             <ExpandButton />
             <div className="my-6 flex justify-center items-center w-full">
