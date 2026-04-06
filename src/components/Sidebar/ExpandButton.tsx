@@ -7,7 +7,7 @@ const ExpandButton = () => {
     return (
         <button
             onClick={toggleSwitch}
-            className="p-1.5 absolute top-[70%] -right-3 z-100 rounded-full text-sid-bar-primary-text bg-primary shadow-md hover:bg-primary-light flex items-center justify-center transition-transform hover:scale-110">
+            className="p-1.5 absolute top-[70%] -right-3 z-101 cursor-pointer rounded-full text-sid-bar-primary-text bg-primary shadow-md hover:bg-primary-light flex items-center justify-center transition-transform hover:scale-110">
             {expanded ? <ChevronLeft size={15} /> : <ChevronRight size={15} />}
         </button>
 

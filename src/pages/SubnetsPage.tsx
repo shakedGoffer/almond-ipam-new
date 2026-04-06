@@ -18,8 +18,11 @@ import {
 import DataTableColumnHeader from "@/components/DataTable/DataTableColumnHeader";
 import { DataTable } from "@/components/DataTable/Table";
 import { Link } from "react-router-dom";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import CreateSubnetDialogForm from "@/components/CreateSubnetDialogForm";
 
 const SubnetPage = () => {
+  // Columns for Subnets DataTable
   const subnetsColumns: ColumnDef<Subnet>[] = [
     {
       accessorKey: "name",
@@ -82,15 +85,18 @@ const SubnetPage = () => {
   ];
 
   return (
-    <div className="flex flex-col h-fill w-fill flex-1 gap-6 w-full">
-      <div className="flex flex-row justify-around gap-10">
+    <div className="flex flex-col h-fill w-fill flex-1 gap-6">
+      <div className="flex flex-row justify-around w-fill shrink-0 items-center px-1 gap-1">
         <SearchBar />
-        <div className="flex flex-row flex-1 justify-end">
-          <Button className="gap-1">
-            <Plus />
-            Create New Subnet
-          </Button>
-        </div>
+        <Dialog>
+          <DialogTrigger asChild className="">
+            <Button className="gap-1">
+              <Plus />
+              Create New Subnet
+            </Button>
+          </DialogTrigger>
+          <CreateSubnetDialogForm title={"Create New Subnet"}/>
+        </Dialog>
       </div>
       <DataTable
         columns={subnetsColumns}
