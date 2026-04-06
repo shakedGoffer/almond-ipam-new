@@ -1,18 +1,20 @@
 interface Ip {
-  address_description: string,
-  mac_address: string,
-  type: string,
+    address_description: string,
+    mac_address: string,
+    type: string,
 }
 
 interface Subnet {
-  name: string,
-  description: string,
-  gateway: string,
-  dns_servers: string[],
-  subnet_cidr: number,
-  allocated_ips: Record<string, Ip>,
-  free_ips: Record<string, Ip>,
-  allocated_ips_percent: number,
+    address?: string,
+    fullAddress?: string,
+    name: string,
+    description: string,
+    gateway: string,
+    dns_servers: string[],
+    subnet_cidr: number,
+    allocated_ips: Record<string, Ip>,
+    free_ips: Record<string, Ip>,
+    allocated_ips_percent: number,
 }
 
 /* Convert Subnets row data to array of subnets & format it */
@@ -54,9 +56,9 @@ const countTotalAddresses = (subnetsList: Subnet[]) => {
         totalFree: free,
         totalDynamic: dynamic,
         totalReserved: reserved,
-        totalAllocated: dynamic+reserved
+        totalAllocated: dynamic + reserved
     };
 };
 
 
-export { formatSubnetsData, countTotalAddresses, formatAddressesData, type Subnet, type Ip};
+export { formatSubnetsData, countTotalAddresses, formatAddressesData, type Subnet, type Ip };

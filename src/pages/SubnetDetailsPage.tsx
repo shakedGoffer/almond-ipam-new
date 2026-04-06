@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import fakeData from "../../fakeData/fakeData";
-import { formatAddressesData, type Subnet } from "@/lib/utils/dataUtils";
+import {type Subnet } from "@/lib/utils/dataUtils";
 import Divider from "../components/Divider";
 
 import SearchBar from "../components/SearchBar";
