@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import fakeData from "../../fakeData/fakeData";
 import { formatAddressesData, type Ip, type Subnet } from "@/lib/utils/dataUtils";
-import Divider from "../components/Divider";
 
 import SearchBar from "../components/SearchBar";
 import { Button } from "@/components/ui/button";
@@ -26,6 +25,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { DataTable } from "@/components/DataTable/Table";
+import { Separator } from "@/components/ui/separator";
 
 const SubnetDetailsPage = () => {
   const { subnetAddress } = useParams();
@@ -101,7 +101,7 @@ const SubnetDetailsPage = () => {
           </Button>
         </div>
       </div>
-      <Divider />
+      <Separator />
       <Card>
         <CardContent>
           <div className="flex flex-row gap-4 justify-around">
@@ -112,7 +112,7 @@ const SubnetDetailsPage = () => {
               <li>Subnet Name: {subnet.name}</li>
               <li>Subnet Description: {subnet.description}</li>
             </ul>
-            <Divider vertical />
+            <Separator orientation="vertical" />
             <ul>
               <li> Default Gateway: {subnet.gateway}</li>
               <li>DNS Servers: {subnet.dns_servers.toString()}</li>
