@@ -10,38 +10,29 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { BookOpen, Globe, Network, Server } from "lucide-react";
 
 import * as z from "zod";
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from "@hookform/resolvers/zod";
 
-type FormSchemaType = {
-  subnetName: string;
-  subnetDescription: string;
-  subnetAddress: string;
-  subnetCIDR: string;
-  subnetGateway: string;
-  dnsServers: string;
-};
-
+// Zod schema for form validation
 const CreateSubnetFormSchema = z.object({
   subnetName: z.string().min(3, "Subnet name must be at least 3 characters"),
   subnetDescription: z
     .string()
-    .max(100, "Subnet description must be less than 255 characters")
+    .max(100, "Subnet description must be less than 100 characters")
     .optional(),
-  subnetAddress: z.ipv4("Invalid IPv4 address format"),
-  subnetCIDR: z.number("Invalid Input"),
-  subnetGateway: z.ipv4("Invalid IPv4 address format"),
+  subnetAddress: z.ipv4(),
+  subnetCIDR: z.coerce.number().int().gte(4).lte(32),
+  subnetGateway: z.ipv4(),
+  // Custom validation for DNS servers - allow empty (optional field) or a list of IPv4 addresses (separated by commas)
   dnsServers: z.string().refine((value) => {
+    if (!value) return true;
     const servers = value.split(",").map((s) => s.trim());
     return servers.every((s) => z.ipv4().safeParse(s).success);
-  }, "Invalid DNS servers format (Notice: you can usa a comma to separate IPv4 DNS servers addresses)"),
+  }, "Invalid DNS servers IPv4 addresses format (Notice: you can usa a comma to include addresses)"),
 });
 
 type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
 
 const CreateSubnetDialogForm = ({ title }: { title: string }) => {
-  
-  const form_old = useForm<FormSchemaType>();
-
   const form = useForm({
     resolver: zodResolver(CreateSubnetFormSchema),
   });
@@ -59,7 +50,10 @@ const CreateSubnetDialogForm = ({ title }: { title: string }) => {
   };
 
   return (
-    <form className="flex flex-col gap-4" onSubmit={form.handleSubmit(onSubmit)}>
+    <form
+      className="flex flex-col gap-4"
+      onSubmit={form.handleSubmit(onSubmit)}
+    >
       {/* Dialog Form, dissable dialog close on outside interaction */}
       <DialogContent
         onInteractOutside={(e) => {
@@ -104,6 +98,7 @@ const CreateSubnetDialogForm = ({ title }: { title: string }) => {
               label="CIDR"
               className="w-14"
               placeholder="24..."
+              type="number"
             />
           </div>
           <FormInput
