@@ -1,7 +1,7 @@
 import fakeData from "../../fakeData/fakeData";
-import AddressAvailability from "../components/AddressAvailability";
-import AddressSummary from "../components/AddressSummary";
-import TotalsPieChart from "../components/TotalsPieChart";
+import AddressAvailability from "@/components/AddressAvailability";
+import AddressSummary from "@/components/AddressSummary";
+import TotalsPieChart from "@/components/TotalsPieChart";
 import {
   formatSubnetsData,
   countTotalAddresses,
@@ -57,7 +57,7 @@ const HomePage = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="">
               <DropdownMenuItem>
-                <Edit /> Edite
+                <Edit /> Edit
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="text-red-500">
