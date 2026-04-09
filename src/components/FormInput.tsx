@@ -61,8 +61,9 @@ const FormInput = forwardRef<HTMLInputElement, InputProps>(
           )}
         </div>
         {error && (
-          <p className="text-xs text-status-error mt-1.5 ml-1 max-w-sm">{error}</p>
+          <p className="text-xs text-status-error mt-1.5 px-1">{error}</p>
         )}
+        
       </div>
     );
   },
