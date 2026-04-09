@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -35,11 +36,12 @@ type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
 
 interface SubnetDialogFormProps {
   title: string;
+  description?: string;
   dialogTrigger: React.ReactNode;
 }
 
 /* Dialog Form for creating a new subnet and editing existing subnets */
-const SubnetDialogForm = ({ title, dialogTrigger }: SubnetDialogFormProps) => {
+const SubnetDialogForm = ({ title, description, dialogTrigger }: SubnetDialogFormProps) => {
   const form = useForm({
     resolver: zodResolver(CreateSubnetFormSchema),
   });
@@ -59,6 +61,7 @@ const SubnetDialogForm = ({ title, dialogTrigger }: SubnetDialogFormProps) => {
           <DialogTitle>
             {title} 
           </DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <form onSubmit={form.handleSubmit(onSubmit)}  className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
