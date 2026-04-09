@@ -62,8 +62,8 @@ function DialogContent({
         }}
         data-slot="dialog-content"
         className={cn(
-          "fixed min-w-max max-w-md top-1/2 left-1/2 z-200 shadow-xl grid w-full -translate-x-1/2 -translate-y-1/2 gap-6 rounded-xl bg-popover p-6 text-sm text-popover-foreground ring-1 ring-secondary-text/10 duration-100 outline-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
-          "bg-form-bg gap-6 my-8 max-w-lg",
+          "fixed top-1/2 left-1/2 z-200 shadow-xl grid -translate-x-1/2 -translate-y-1/2 gap-6 rounded-xl bg-popover p-6 text-sm text-popover-foreground ring-1 ring-secondary-text/10 duration-100 outline-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+          "bg-form-bg gap-8 py-8 w-lg",
           className,
         )}
         {...props}
@@ -147,6 +147,7 @@ function DialogDescription({
       data-slot="dialog-description"
       className={cn(
         "text-sm text-muted-foreground *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground",
+        "truncate text-wrap whitespace-normal w-",
         className,
       )}
       {...props}
