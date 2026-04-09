@@ -36,7 +36,7 @@ const ConfirmDialog = ({
             </div>
             <span>{title}</span>
           </DialogTitle>
-          <DialogDescription className="text-center">
+          <DialogDescription>
             {description}
           </DialogDescription>
         </DialogHeader>
