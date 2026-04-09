@@ -54,15 +54,14 @@ const SubnetDialogForm = ({ title, dialogTrigger }: SubnetDialogFormProps) => {
         {dialogTrigger}
       </DialogTrigger>
 
-      <DialogContent
-       >
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>
             {title} 
           </DialogTitle>
         </DialogHeader>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex flex-col py-3 gap-4">
+        <form onSubmit={form.handleSubmit(onSubmit)}  className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4">
             <FormInput
               {...form.register("subnetName", {
                 required: "Input is required",
