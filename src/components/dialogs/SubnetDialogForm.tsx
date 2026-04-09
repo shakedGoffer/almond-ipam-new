@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -51,23 +50,20 @@ const SubnetDialogForm = ({ title, dialogTriger }: SubnetDialogFormProps) => {
 
   return (
     <Dialog>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <DialogTrigger asChild className="">
-          {dialogTriger}
-        </DialogTrigger>
+      <DialogTrigger asChild>
+        {dialogTriger}
+      </DialogTrigger>
 
-        <DialogContent
-          className="bg-form-bg gap-6 my-8 max-w-lg"
-          onInteractOutside={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <DialogHeader>
-            <DialogTitle className="text-xl text-center capitalize font-bold ">
-              {title}
-            </DialogTitle>
-          </DialogHeader>
-
+      <DialogContent
+        onInteractOutside={(e) => {
+          e.preventDefault();
+        }}>
+        <DialogHeader>
+          <DialogTitle>
+            {title} 
+          </DialogTitle>
+        </DialogHeader>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col py-3 gap-4">
             <FormInput
               {...form.register("subnetName", {
@@ -119,8 +115,7 @@ const SubnetDialogForm = ({ title, dialogTriger }: SubnetDialogFormProps) => {
               placeholder="1.1.1.1, 1.1.1.2..."
             />
           </div>
-
-          <DialogFooter className="flex flex-col sm:flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <div className="flex flex-row flex-1 gap-4">
               <Button
                 type="submit"
@@ -137,9 +132,9 @@ const SubnetDialogForm = ({ title, dialogTriger }: SubnetDialogFormProps) => {
                 {form.formState.errors.root.message}
               </span>
             )}
-          </DialogFooter>
-        </DialogContent>
-      </form>
+          </div>
+        </form>
+      </DialogContent>
     </Dialog>
   );
 };
