@@ -1,6 +1,10 @@
 import { Link, useParams } from "react-router-dom";
 import fakeData from "../../fakeData/fakeData";
-import { formatAddressesData, type Ip, type Subnet } from "@/lib/utils/dataUtils";
+import {
+  formatAddressesData,
+  type Ip,
+  type Subnet,
+} from "@/lib/utils/dataUtils";
 
 import SearchBar from "../components/SearchBar";
 import { Button } from "@/components/ui/button";
@@ -13,7 +17,7 @@ import {
   TrashIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import DataTableColumnHeader from "@/components/DataTable/DataTableColumnHeader";
+import DataTableColumnHeader from "@/components/dataTable/DataTableColumnHeader";
 
 import { type ColumnDef } from "@tanstack/react-table";
 
@@ -24,8 +28,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DataTable } from "@/components/DataTable/Table";
+import { DataTable } from "@/components/dataTable/Table";
 import { Separator } from "@/components/ui/separator";
+import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
+import ConfirmDialog from "@/components/dialogs/ConfirmDialog";
 
 const SubnetDetailsPage = () => {
   const { subnetAddress } = useParams();
@@ -63,7 +69,7 @@ const SubnetDetailsPage = () => {
             <DropdownMenuTrigger asChild>
               <Button variant={"ghost"} className="h-8 w-8 p-0">
                 <span className="sr-only">Open menu</span>
-                <MoreVertical className="size-4.5"/>
+                <MoreVertical className="size-4.5" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="">
@@ -83,7 +89,8 @@ const SubnetDetailsPage = () => {
   ];
 
   return (
-    <div className="flex flex-col flex-1 min-w-min gap-6">
+    <div className="flex flex-col flex-1 min-w-min gap-5">
+      {/* Top tools bar (delete & edit subnet + create new address + go back) */}
       <div className="flex flex-row items-center justify-between text-primary-text">
         <Link to={`/subnets`}>
           <ChevronsLeft />
@@ -93,15 +100,30 @@ const SubnetDetailsPage = () => {
             <Plus />
             Add Address
           </Button>
-          <Button className="p-2">
-            <Edit />
-          </Button>
-          <Button className="p-2">
-            <TrashIcon />
-          </Button>
+          <SubnetDialogForm
+            title={`Edit Subnet ${subnetAddress}/${subnet.subnet_cidr}`}
+            dialogTrigger={
+              <Button className="p-3">
+                <Edit />
+              </Button>
+            }
+          />
+          <ConfirmDialog
+            title={`Delete Subnet ${subnetAddress}/${subnet.subnet_cidr}`}
+            description="This is a permanent action. All Subnets data, address, and details
+            will be deleted immediately and cannot be recovered."
+            dialogTrigger={
+              <Button className="p-3">
+                <TrashIcon />
+              </Button>
+            }
+          />
         </div>
       </div>
+
       <Separator />
+
+      {/* Subnet details card */}
       <Card>
         <CardContent>
           <div className="flex flex-row gap-4 justify-around">
@@ -124,7 +146,8 @@ const SubnetDetailsPage = () => {
         </CardContent>
       </Card>
 
-      <div className="flex flex-col gap-4">
+      {/* Address table + search & filter bar */}
+      <div className="flex flex-col gap-4 mt-4">
         <SearchBar />
         <DataTable
           columns={subnetAddressesColumns}
