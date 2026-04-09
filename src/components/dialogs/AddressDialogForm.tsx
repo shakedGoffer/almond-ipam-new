@@ -18,19 +18,27 @@ import { zodResolver } from "@hookform/resolvers/zod";
 const CreateSubnetFormSchema = z.object({
   addressDescription: z.string(),
   addressMAC: z.mac(),
-  addressIP:z.ipv4(),
+  addressIP: z.ipv4(),
 });
 
 type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
 
 interface AddressDialogFormProps {
   title: string;
+  variant: "create" | "edit";
+  addressType: "dynamic" | "reserved";
   description?: string;
   dialogTrigger: React.ReactNode;
 }
 
 /* Dialog Form for creating a new subnet and editing existing subnets */
-const AddressDialogForm = ({ title, description, dialogTrigger }: AddressDialogFormProps) => {
+const AddressDialogForm = ({
+  title,
+  description,
+  variant,
+  addressType,
+  dialogTrigger,
+}: AddressDialogFormProps) => {
   const form = useForm({
     resolver: zodResolver(CreateSubnetFormSchema),
   });
@@ -41,18 +49,25 @@ const AddressDialogForm = ({ title, description, dialogTrigger }: AddressDialogF
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        {dialogTrigger}
-      </DialogTrigger>
+      <DialogTrigger asChild>{dialogTrigger}</DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            {title} 
-          </DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription
+            className={
+              addressType === "reserved"
+                ? "text-address-reserved"
+                : "text-address-dynamic"
+            }
+          >
+            {description}
+          </DialogDescription>
         </DialogHeader>
-        <form onSubmit={form.handleSubmit(onSubmit)}  className="flex flex-col gap-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-6"
+        >
           <div className="flex flex-col gap-4">
             <FormInput
               {...form.register("addressDescription")}
@@ -62,7 +77,7 @@ const AddressDialogForm = ({ title, description, dialogTrigger }: AddressDialogF
               placeholder="Description..."
             />
 
-             <FormInput
+            <FormInput
               {...form.register("addressMAC")}
               error={form.formState.errors.addressMAC?.message}
               label="Address MAC"
@@ -70,14 +85,17 @@ const AddressDialogForm = ({ title, description, dialogTrigger }: AddressDialogF
               placeholder="05:B8:TT..."
             />
 
-            <FormInput
-              {...form.register("addressIP")}
-              error={form.formState.errors.addressIP?.message}
-              label="Address IP"
-              icon={<MapPinHouse className="size-5" />}
-              placeholder="1.1.1.15..."
-            />
+            {addressType == "reserved" && variant != "edit" && (
+              <FormInput
+                {...form.register("addressIP")}
+                error={form.formState.errors.addressIP?.message}
+                label="Address IP"
+                icon={<MapPinHouse className="size-5" />}
+                placeholder="1.1.1.15..."
+              />
+            )}
           </div>
+
           <div className="flex flex-col gap-2">
             <div className="flex flex-row flex-1 gap-4">
               <Button

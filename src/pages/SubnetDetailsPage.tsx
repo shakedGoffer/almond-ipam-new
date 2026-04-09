@@ -66,7 +66,8 @@ const SubnetDetailsPage = () => {
     },
     {
       id: "actions",
-      cell: () => {
+      cell: ({ row }) => {
+        const address = row.original;
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -76,14 +77,27 @@ const SubnetDetailsPage = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <Edit /> Edit
-              </DropdownMenuItem>
+              <AddressDialogForm
+                variant="edit"
+                addressType={address.type}
+                title={`Edit Address ${address.address}`}
+                dialogTrigger={
+                  <DropdownMenuItem>
+                    <Edit /> Edit
+                  </DropdownMenuItem>
+                }
+              />
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-red-500">
-                <Trash />
-                Delete
-              </DropdownMenuItem>
+              <ConfirmDialog
+                title={`Delete Address ${address.address}`}
+                description="This is a permanent action. All Address data will be deleted immediately and cannot be recovered."
+                dialogTrigger={
+                  <DropdownMenuItem className="text-red-500">
+                    <Trash />
+                    Delete
+                  </DropdownMenuItem>
+                }
+              />
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -107,9 +121,12 @@ const SubnetDetailsPage = () => {
                   Add Address
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent >
+              <DropdownMenuContent>
                 <AddressDialogForm
-                  title={`Create New Address`}
+                  variant="create"
+                  addressType="reserved"
+                  title={`Reserve Address`}
+                  description={`Reserve Address On Subnet: ${subnetAddress}/${subnet.subnet_cidr}`}
                   dialogTrigger={
                     <DropdownMenuItem className="text-address-reserved justify-center">
                       Reserve Address
@@ -117,10 +134,17 @@ const SubnetDetailsPage = () => {
                   }
                 />
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="text-address-dynamic justify-center">
-                  {" "}
-                  Allocate Free Address{" "}
-                </DropdownMenuItem>
+                <AddressDialogForm
+                  variant="create"
+                  addressType="dynamic"
+                  title={`Allocate Free Address`}
+                  description={` Allocate Free Address On Subnet: ${subnetAddress}/${subnet.subnet_cidr}`}
+                  dialogTrigger={
+                    <DropdownMenuItem className="text-address-dynamic justify-center">
+                      Allocate Free Address
+                    </DropdownMenuItem>
+                  }
+                />
               </DropdownMenuContent>
             </div>
           </DropdownMenu>
