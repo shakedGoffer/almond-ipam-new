@@ -13,6 +13,8 @@ import { BookOpen, MapPinHouse, MonitorCog } from "lucide-react";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { toast } from "sonner";
+import { useState } from "react";
 
 interface AddressDialogFormProps {
   title: string;
@@ -23,16 +25,12 @@ interface AddressDialogFormProps {
 }
 
 /* Dialog Form for creating a new subnet and editing existing subnets */
-const AddressDialogForm = ({
-  title,
-  description,
-  variant,
-  addressType,
-  dialogTrigger,
-}: AddressDialogFormProps) => {
+const AddressDialogForm = ({title, description, variant, addressType, dialogTrigger,}: AddressDialogFormProps) => {
+  
+  const [dialogOpen, setDialogOpen] = useState(false); // Dialog Open state var
 
   // Zod schema for form validation
-  const CreateSubnetFormSchema = z.object({
+  const AddressFormSchema = z.object({
     addressDescription: z.string(),
     addressMAC: z.mac(),
     addressIP: z.refine((value) => {
@@ -41,18 +39,18 @@ const AddressDialogForm = ({
     }),
   });
 
-  type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
+  const form = useForm({ resolver: zodResolver(AddressFormSchema) });
 
-  const form = useForm({
-    resolver: zodResolver(CreateSubnetFormSchema),
-  });
-
-  const onSubmit: SubmitHandler<CreateSubnetFormSchemaType> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<z.infer<typeof AddressFormSchema>> = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    setDialogOpen(false)
+    console.log("Form Data:", data);
+    toast.success("Subnet created successfully!");
+    form.reset();
   };
 
   return (
-    <Dialog>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>{dialogTrigger}</DialogTrigger>
 
       <DialogContent>
@@ -102,12 +100,7 @@ const AddressDialogForm = ({
 
           <div className="flex flex-col gap-2">
             <div className="flex flex-row flex-1 gap-4">
-              <Button
-                type="submit"
-                variant="form"
-                disabled={form.formState.isSubmitting}
-                className="flex flex-1 "
-              >
+              <Button type="submit" variant="form" className="flex flex-1 ">
                 {form.formState.isSubmitting ? "Loading..." : "Submit"}
               </Button>
             </div>
