@@ -14,7 +14,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-container-bg-basic/20 data-[state=open]:bg-container-bg-basic/20",
         outline:
-          "border-border bg-background shadow-xs hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50",
+          "border-2 bg-container-bg-basic hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50 border-primary text-primary",
 
         form: "bg-primary text-primary-text hover:bg-primary-light",
       },
