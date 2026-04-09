@@ -88,6 +88,7 @@ const SubnetDialogForm = ({ title, variant, description, dialogTrigger }: Subnet
                   {...form.register("subnetAddress")}
                   error={form.formState.errors.subnetAddress?.message}
                   label="Subnet Address"
+                  className="min-w-87"
                   placeholder="1.1.1.0..."
                 />
               </div>
@@ -96,9 +97,8 @@ const SubnetDialogForm = ({ title, variant, description, dialogTrigger }: Subnet
                 {...form.register("subnetCIDR")}
                 error={form.formState.errors.subnetCIDR?.message}
                 label="CIDR"
-                className="w-14"
+                className="w-20"
                 placeholder="24..."
-                type="number"
               />
             </div>
             <FormInput
