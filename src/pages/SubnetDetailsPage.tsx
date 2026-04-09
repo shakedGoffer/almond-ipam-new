@@ -32,10 +32,13 @@ import { DataTable } from "@/components/dataTable/Table";
 import { Separator } from "@/components/ui/separator";
 import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
 import ConfirmDialog from "@/components/dialogs/ConfirmDialog";
+import AddressDialogForm from "@/components/dialogs/AddressDialogForm";
 
 const SubnetDetailsPage = () => {
   const { subnetAddress } = useParams();
   const subnet: Subnet = fakeData[subnetAddress];
+
+  // Columns for Addresses DataTable
   const subnetAddressesColumns: ColumnDef<Ip>[] = [
     {
       accessorKey: "address_description",
@@ -72,9 +75,9 @@ const SubnetDetailsPage = () => {
                 <MoreVertical className="size-4.5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="">
+            <DropdownMenuContent align="end">
               <DropdownMenuItem>
-                <Edit /> Edite
+                <Edit /> Edit
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="text-red-500">
@@ -96,10 +99,32 @@ const SubnetDetailsPage = () => {
           <ChevronsLeft />
         </Link>
         <div className="flex flex-row gap-2">
-          <Button className="gap-1">
-            <Plus />
-            Add Address
-          </Button>
+          <DropdownMenu>
+            <div className="flex flex-col w-full flex-1">
+              <DropdownMenuTrigger asChild className="">
+                <Button className="gap-1 px-10">
+                  <Plus />
+                  Add Address
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent >
+                <AddressDialogForm
+                  title={`Create New Address`}
+                  dialogTrigger={
+                    <DropdownMenuItem className="text-address-reserved justify-center">
+                      Reserve Address
+                    </DropdownMenuItem>
+                  }
+                />
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="text-address-dynamic justify-center">
+                  {" "}
+                  Allocate Free Address{" "}
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </div>
+          </DropdownMenu>
+
           <SubnetDialogForm
             title={`Edit Subnet ${subnetAddress}/${subnet.subnet_cidr}`}
             dialogTrigger={
