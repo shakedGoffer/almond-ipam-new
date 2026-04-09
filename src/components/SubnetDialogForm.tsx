@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dialog";
 import FormInput from "@/components/FormInput";
 import { useForm, type SubmitHandler } from "react-hook-form";
-import { BookOpen, Globe, Network, Plus, Server } from "lucide-react";
+import { BookOpen, Globe, Network, Server } from "lucide-react";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,7 +34,13 @@ const CreateSubnetFormSchema = z.object({
 
 type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
 
-const CreateSubnetDialog = () => {
+interface SubnetDialogFormProps {
+  title: string;
+  dialogTriger: React.ReactNode;
+}
+
+/* Dialog Form for creating a new subnet and editing existing subnets */
+const SubnetDialogForm = ({ title, dialogTriger }: SubnetDialogFormProps) => {
   const form = useForm({
     resolver: zodResolver(CreateSubnetFormSchema),
   });
@@ -47,16 +53,18 @@ const CreateSubnetDialog = () => {
     <Dialog>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <DialogTrigger asChild className="">
-          <Button className="gap-1">
-            <Plus />
-            Create New Subnet
-          </Button>
+          {dialogTriger}
         </DialogTrigger>
 
-        <DialogContent className="bg-form-bg gap-4 max-w-lg">
+        <DialogContent
+          className="bg-form-bg gap-6 my-8 max-w-lg"
+          onInteractOutside={(e) => {
+            e.preventDefault();
+          }}
+        >
           <DialogHeader>
             <DialogTitle className="text-xl text-center capitalize font-bold ">
-              Create New Subnet
+              {title}
             </DialogTitle>
           </DialogHeader>
 
@@ -136,4 +144,4 @@ const CreateSubnetDialog = () => {
   );
 };
 
-export default CreateSubnetDialog;
+export default SubnetDialogForm;
