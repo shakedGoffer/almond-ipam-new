@@ -15,8 +15,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DataTableColumnHeader from "@/components/DataTable/DataTableColumnHeader";
-import { DataTable } from "@/components/DataTable/Table";
+import DataTableColumnHeader from "@/components/dataTable/DataTableColumnHeader";
+import { DataTable } from "@/components/dataTable/Table";
 import { Link } from "react-router-dom";
 import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
 
