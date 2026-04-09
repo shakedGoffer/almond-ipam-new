@@ -18,7 +18,7 @@ import {
 import DataTableColumnHeader from "@/components/DataTable/DataTableColumnHeader";
 import { DataTable } from "@/components/DataTable/Table";
 import { Link } from "react-router-dom";
-import SubnetDialogForm from "@/components/Forms/SubnetDialogForm";
+import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
 
 const SubnetPage = () => {
   // Columns for Subnets DataTable
