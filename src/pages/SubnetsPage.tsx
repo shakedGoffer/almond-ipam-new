@@ -57,7 +57,7 @@ const SubnetPage = () => {
             <DropdownMenuContent align="end" className="">
               <SubnetDialogForm
                 title={`Edit Subnet ${subnet.fullAddress}`}
-                dialogTriger={
+                dialogTrigger={
                   <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                     <Edit /> Edit
                   </DropdownMenuItem>
