@@ -19,7 +19,7 @@ import DataTableColumnHeader from "@/components/dataTable/DataTableColumnHeader"
 import { DataTable } from "@/components/dataTable/Table";
 import { Link } from "react-router-dom";
 import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
-import ConfirmDialog from "@/components/dialogs/ConfirmDialog";
+import DeleteConfirmationDialog from "@/components/dialogs/DeleteConfirmationDialog";
 
 const SubnetPage = () => {
   // Columns for Subnets DataTable
@@ -69,7 +69,7 @@ const SubnetPage = () => {
 
               <DropdownMenuSeparator />
 
-              <ConfirmDialog
+              <DeleteConfirmationDialog
                 title={`Delete Subnet ${subnet.fullAddress}`}
                 description="This is a permanent action. All Subnets data, address, and details will be deleted immediately and cannot be recovered."
                 dialogTrigger={

@@ -31,7 +31,7 @@ import {
 import { DataTable } from "@/components/dataTable/Table";
 import { Separator } from "@/components/ui/separator";
 import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
-import ConfirmDialog from "@/components/dialogs/ConfirmDialog";
+import DeleteConfirmationDialog from "@/components/dialogs/DeleteConfirmationDialog";
 import AddressDialogForm from "@/components/dialogs/AddressDialogForm";
 
 const SubnetDetailsPage = () => {
@@ -88,7 +88,7 @@ const SubnetDetailsPage = () => {
                 }
               />
               <DropdownMenuSeparator />
-              <ConfirmDialog
+              <DeleteConfirmationDialog
                 title={`Delete Address ${address.address}`}
                 description="This is a permanent action. All Address data will be deleted immediately and cannot be recovered."
                 dialogTrigger={
@@ -157,7 +157,7 @@ const SubnetDetailsPage = () => {
               </Button>
             }
           />
-          <ConfirmDialog
+          <DeleteConfirmationDialog
             title={`Delete Subnet ${subnetAddress}/${subnet.subnet_cidr}`}
             description="This is a permanent action. All Subnets data, address, and details
             will be deleted immediately and cannot be recovered."

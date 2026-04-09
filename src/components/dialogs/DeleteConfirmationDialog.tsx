@@ -13,17 +13,17 @@ import {
 import { AlertTriangle } from "lucide-react";
 import { Checkbox } from "../ui/checkbox";
 
-interface ConfirmDialogProps {
+interface DeleteConfirmationDialogProps {
   title: string;
   description?: string;
   dialogTrigger: React.ReactNode;
 }
 
-const ConfirmDialog = ({
+const DeleteConfirmationDialog = ({
   title,
   description,
   dialogTrigger,
-}: ConfirmDialogProps) => {
+}: DeleteConfirmationDialogProps) => {
   return (
     <Dialog>
       <DialogTrigger asChild>{dialogTrigger}</DialogTrigger>
@@ -56,4 +56,4 @@ const ConfirmDialog = ({
   );
 };
 
-export default ConfirmDialog;
+export default DeleteConfirmationDialog;
