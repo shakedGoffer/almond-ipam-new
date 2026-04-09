@@ -1,7 +1,8 @@
 interface Ip {
+    address?: string,
     address_description: string,
     mac_address: string,
-    type: string,
+    type: "dynamic" | "reserved" | string,
 }
 
 interface Subnet {
