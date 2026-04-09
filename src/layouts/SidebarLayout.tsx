@@ -1,12 +1,11 @@
 import { BookOpenText, Home, Network } from "lucide-react";
-import Sidebar from "@/features/Sidebar";
-import { SidebarProvider } from "@/features/Sidebar/SidebarProvider";
+import Sidebar from "@/components/sidebar";
 import { Outlet } from "react-router-dom";
 
 const SidebarLayout = () => {
   return (
     <div className="flex">
-      <SidebarProvider>
+      <Sidebar.provider>
         <Sidebar>
           <Sidebar.item icon={<Home size={20} />} text="Home" link="/home" />
           <Sidebar.item
@@ -20,7 +19,7 @@ const SidebarLayout = () => {
             link="/about"
           />
         </Sidebar>
-      </SidebarProvider>
+      </Sidebar.provider>
       <main className="flex-1 h-screen flex flex-col px-16 py-12 app-bg overflow-auto">
         <Outlet />
       </main>

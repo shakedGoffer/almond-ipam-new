@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const LandingPage = () => {
@@ -12,8 +12,8 @@ const LandingPage = () => {
                     with ALMOND IPAM easy-to-use, intuitive, centralized console
                 </p>
                 <div className="flex flex-row gap-4 w-full px-10">
-                    <Button asChild  className="flex-1"><NavLink to="/home">{"<- Get Started"}</NavLink></Button>
-                    <Button asChild variant="secondary"><NavLink to="/about">Learn More</NavLink></Button>
+                    <Button asChild  className="flex-1"><Link to="/home">{"<- Get Started"}</Link></Button>
+                    <Button asChild variant="secondary"><Link to="/about">Learn More</Link></Button>
                 </div>
             </div>
             <img className="w-72" src={'/src/assets/happy-almond.png'} />

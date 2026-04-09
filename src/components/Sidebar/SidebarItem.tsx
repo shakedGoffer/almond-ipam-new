@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { cn } from '@/lib/utils/cn';
 import { useSidebar } from "./SidebarProvider";
-import Tooltip from "../../components/Tooltip";
+import Tooltip from "../Tooltip";
 
 interface SidebarItemProps {
   icon: React.ReactNode;

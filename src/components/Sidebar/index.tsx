@@ -1,4 +1,4 @@
-import Logo from "../../components/Logo";
+import Logo from "../Logo";
 import { cn } from '@/lib/utils/cn';
 import ThemeSwitch from "./ThemeSwitch";
 import LogoutButton from "./LogoutButton";
@@ -6,12 +6,13 @@ import {useSidebar } from "./SidebarProvider";
 import type React from "react";
 import ExpandButton from "./ExpandButton";
 import SidebarItem from "./SidebarItem";
+import { SidebarProvider } from "./SidebarProvider";
 
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
     const { expanded } = useSidebar();
     return (
         <aside className={cn(
-            "relative flex flex-col bg-sid-bar-bg shadow-md transition-all duration-500 ease-in-out",
+            "relative flex flex-col bg-sid-bar-bg shadow-md transition-all duration-500 ease-in-out z-100",
             expanded ? "min-w-52" : "min-w-16" )}>
             <ExpandButton />
             <div className="my-6 flex justify-center items-center w-full">
@@ -31,5 +32,6 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
 }
 
 Sidebar.item = SidebarItem
+Sidebar.provider = SidebarProvider
 
 export default Sidebar;

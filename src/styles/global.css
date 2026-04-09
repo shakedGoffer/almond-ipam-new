@@ -32,7 +32,7 @@
         --color-address-remaining: #8baa8246;
 
         /* Text colors */
-        --color-primary-text: #1F2937;
+        --color-primary-text:  #1F2937;
         --color-secondary-text: #6B7280;
 
         /* BG colors */
@@ -49,8 +49,8 @@
         --color-sid-bar-bg: #FFFFFF;
         --color-sid-bar-primary-text: #1F2937;
         --color-sid-bar-secondary-text: #6B7280;
-        --color-sid-bar-active-bg: rgba(255, 243, 232, 0.8);
-        --color-sid-bar-haver-bg: rgba(255, 243, 232, 0.5);
+        --color-sid-bar-active-bg: #ff9b0f5e;
+        --color-sid-bar-haver-bg: #ff9b0f28;
 
         /* Form colors */
         --color-form-bg: #FFFFFF;

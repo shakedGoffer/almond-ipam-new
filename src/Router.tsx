@@ -5,9 +5,10 @@ import NotFoundPage from "@/pages/NotFoundPage";
 import LandingPage from "@/pages/LandingPage";
 import SidebarLayout from "@/layouts/SidebarLayout";
 import HomePage from "@/pages/HomePage";
-import SubnetsPage from "./pages/SubnetsPage";
-import SubnetDetailsPage from "./pages/SubnetDetailsPage";
-import AboutPage from "./pages/AboutPage";
+import SubnetsPage from "@/pages/SubnetsPage";
+import SubnetDetailsPage from "@/pages/SubnetDetailsPage";
+import AboutPage from "@/pages/AboutPage";
+import LoginPage from "@/pages/LoginPage";
 
 
 
@@ -29,10 +30,10 @@ const router = createBrowserRouter([
                 path: "/",
                 element: <LandingPage />,
             },
-  /*           {
+            {
                 path: "/login",
                 element: <LoginPage />,
-            }, */
+            },
 
         ]
     },

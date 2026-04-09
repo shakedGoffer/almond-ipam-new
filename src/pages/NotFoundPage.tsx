@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 const NotFoundPage = () => {
@@ -12,7 +12,7 @@ const NotFoundPage = () => {
                 </p>
                 <div className="pt-5">
                     <Button asChild variant="secondary" >
-                      <NavLink to="/home">{"<- Back To Home"}</NavLink></Button>
+                      <Link to="/home">{"<- Back To Home"}</Link></Button>
                 </div>
             </div>
             <img className="w-72" src={'/src/assets/scared-almond.png'} />
