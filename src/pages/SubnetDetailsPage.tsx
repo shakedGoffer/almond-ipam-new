@@ -150,6 +150,7 @@ const SubnetDetailsPage = () => {
           </DropdownMenu>
 
           <SubnetDialogForm
+            variant="edit"
             title={`Edit Subnet ${subnetAddress}/${subnet.subnet_cidr}`}
             dialogTrigger={
               <Button className="p-3">
