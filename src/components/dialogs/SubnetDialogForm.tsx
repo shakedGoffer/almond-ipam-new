@@ -32,7 +32,7 @@ const CreateSubnetFormSchema = z.object({
   }, "Invalid DNS servers IPv4 addresses format (Notice: you can usa a comma to include addresses)"),
 });
 
-type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
+type SubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
 
 interface SubnetDialogFormProps {
   title: string;
@@ -46,7 +46,7 @@ const SubnetDialogForm = ({ title, description, dialogTrigger }: SubnetDialogFor
     resolver: zodResolver(CreateSubnetFormSchema),
   });
 
-  const onSubmit: SubmitHandler<CreateSubnetFormSchemaType> = (data) => {
+  const onSubmit: SubmitHandler<SubnetFormSchemaType> = (data) => {
     console.log(data);
   };
 
