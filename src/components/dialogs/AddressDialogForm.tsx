@@ -14,15 +14,6 @@ import { BookOpen, MapPinHouse, MonitorCog } from "lucide-react";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// Zod schema for form validation
-const CreateSubnetFormSchema = z.object({
-  addressDescription: z.string(),
-  addressMAC: z.mac(),
-  addressIP: z.ipv4(),
-});
-
-type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
-
 interface AddressDialogFormProps {
   title: string;
   variant: "create" | "edit";
@@ -39,6 +30,19 @@ const AddressDialogForm = ({
   addressType,
   dialogTrigger,
 }: AddressDialogFormProps) => {
+
+  // Zod schema for form validation
+  const CreateSubnetFormSchema = z.object({
+    addressDescription: z.string(),
+    addressMAC: z.mac(),
+    addressIP: z.refine((value) => {
+      if (variant === "edit" || addressType === "dynamic") return true;
+      return z.ipv4().safeParse(value).success;
+    }),
+  });
+
+  type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
+
   const form = useForm({
     resolver: zodResolver(CreateSubnetFormSchema),
   });
@@ -65,8 +69,8 @@ const AddressDialogForm = ({
           </DialogDescription>
         </DialogHeader>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-6"
+          onSubmit={form.handleSubmit(onSubmit)}
         >
           <div className="flex flex-col gap-4">
             <FormInput
@@ -102,7 +106,6 @@ const AddressDialogForm = ({
                 type="submit"
                 variant="form"
                 disabled={form.formState.isSubmitting}
-                onClick={form.handleSubmit(onSubmit)}
                 className="flex flex-1 "
               >
                 {form.formState.isSubmitting ? "Loading..." : "Submit"}
