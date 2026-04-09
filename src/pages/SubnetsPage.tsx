@@ -103,9 +103,9 @@ const SubnetPage = () => {
   ];
 
   return (
-    <div className="flex flex-col h-fill w-fill flex-1 gap-6">
+    <div className="flex flex-col flex-1 min-w-min flex-1 gap-6">
       {/* Top section - search + filter bar + create subnet dialog */}
-      <div className="flex flex-row justify-around w-fill shrink-0 items-center px-1 gap-1">
+      <div className="flex flex-row justify-around items-center gap-2">
         <SearchBar />
         <SubnetDialogForm
           title="Create New Subnet "
