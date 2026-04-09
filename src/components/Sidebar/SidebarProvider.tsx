@@ -12,7 +12,7 @@ const SidebarContext = createContext<SidebarContextInterface | undefined>(undefi
 export const SidebarProvider = ({ children }: { children: React.ReactNode }) => {
     const [expanded, setExpanded] = useState(true);
 
-    const toggleSwitch = () => setExpanded((value) => !value); // function to toggle the sidbar expanded state
+    const toggleSwitch = () => setExpanded((value) => !value); // function to toggle the sid bar expanded state
 
     return (
         <SidebarContext.Provider value={{ expanded, setExpanded, toggleSwitch }}>
