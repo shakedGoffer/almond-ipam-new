@@ -54,10 +54,7 @@ const SubnetDialogForm = ({ title, dialogTriger }: SubnetDialogFormProps) => {
         {dialogTriger}
       </DialogTrigger>
 
-      <DialogContent
-        onInteractOutside={(e) => {
-          e.preventDefault();
-        }}>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>
             {title} 
