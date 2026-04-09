@@ -36,12 +36,13 @@ type SubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
 
 interface SubnetDialogFormProps {
   title: string;
+  variant: "create" | "edit";
   description?: string;
   dialogTrigger: React.ReactNode;
 }
 
 /* Dialog Form for creating a new subnet and editing existing subnets */
-const SubnetDialogForm = ({ title, description, dialogTrigger }: SubnetDialogFormProps) => {
+const SubnetDialogForm = ({ title, variant, description, dialogTrigger }: SubnetDialogFormProps) => {
   const form = useForm({
     resolver: zodResolver(CreateSubnetFormSchema),
   });

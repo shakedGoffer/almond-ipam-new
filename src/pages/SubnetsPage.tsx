@@ -58,6 +58,7 @@ const SubnetPage = () => {
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="">
               <SubnetDialogForm
+                variant="edit"
                 title={`Edit Subnet ${subnet.fullAddress}`}
                 dialogTrigger={
                   <DropdownMenuItem>
@@ -105,6 +106,7 @@ const SubnetPage = () => {
       <div className="flex flex-row justify-around items-center gap-2">
         <SearchBar />
         <SubnetDialogForm
+          variant="create"
           title="Create New Subnet "
           dialogTrigger={
             <Button className="gap-1">
