@@ -60,7 +60,7 @@ const SubnetPage = () => {
               <SubnetDialogForm
                 title={`Edit Subnet ${subnet.fullAddress}`}
                 dialogTrigger={
-                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <DropdownMenuItem>
                     <Edit /> Edit
                   </DropdownMenuItem>
                 }
@@ -72,10 +72,7 @@ const SubnetPage = () => {
                 title={`Delete Subnet ${subnet.fullAddress}`}
                 description="This is a permanent action. All Subnets data, address, and details will be deleted immediately and cannot be recovered."
                 dialogTrigger={
-                  <DropdownMenuItem
-                    className="text-red-500"
-                    onSelect={(e) => e.preventDefault()}
-                  >
+                  <DropdownMenuItem className="text-red-500">
                     <Trash />
                     Delete
                   </DropdownMenuItem>
