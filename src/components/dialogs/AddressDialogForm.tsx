@@ -19,7 +19,7 @@ import { useState } from "react";
 interface AddressDialogFormProps {
   title: string;
   variant: "create" | "edit";
-  addressType: "dynamic" | "reserved";
+  addressType: "dynamic" | "reserved" | "free";
   description?: string;
   dialogTrigger: React.ReactNode;
 }

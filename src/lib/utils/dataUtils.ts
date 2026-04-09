@@ -2,7 +2,7 @@ interface Ip {
     address?: string,
     address_description: string,
     mac_address: string,
-    type: "dynamic" | "reserved" | string,
+    type: "dynamic" | "reserved" | "free",
 }
 
 interface Subnet {
