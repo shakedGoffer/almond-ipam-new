@@ -19,6 +19,7 @@ import DataTableColumnHeader from "@/components/dataTable/DataTableColumnHeader"
 import { DataTable } from "@/components/dataTable/Table";
 import { Link } from "react-router-dom";
 import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
+import ConfirmDialog from "@/components/dialogs/ConfirmDialog";
 
 const SubnetPage = () => {
   // Columns for Subnets DataTable
@@ -43,9 +44,10 @@ const SubnetPage = () => {
       ),
     },
     {
+      /* Drop Down "More Actions" (with delete & edit) */
       id: "actions",
-      cell: ({row}) => {
-        const subnet = row .original;
+      cell: ({ row }) => {
+        const subnet = row.original;
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -65,10 +67,20 @@ const SubnetPage = () => {
               />
 
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="text-red-500">
-                <Trash />
-                Delete
-              </DropdownMenuItem>
+
+              <ConfirmDialog
+                title={`Delete Subnet ${subnet.fullAddress}`}
+                description="This is a permanent action. All Subnets data, address, and details will be deleted immediately and cannot be recovered."
+                dialogTrigger={
+                  <DropdownMenuItem
+                    className="text-red-500"
+                    onSelect={(e) => e.preventDefault()}
+                  >
+                    <Trash />
+                    Delete
+                  </DropdownMenuItem>
+                }
+              />
             </DropdownMenuContent>
           </DropdownMenu>
         );
@@ -92,6 +104,7 @@ const SubnetPage = () => {
 
   return (
     <div className="flex flex-col h-fill w-fill flex-1 gap-6">
+      {/* Top section - search + filter bar + create subnet dialog */}
       <div className="flex flex-row justify-around w-fill shrink-0 items-center px-1 gap-1">
         <SearchBar />
         <SubnetDialogForm
@@ -104,6 +117,7 @@ const SubnetPage = () => {
           }
         />
       </div>
+      {/* All Subnets table */}
       <DataTable
         columns={subnetsColumns}
         data={formatSubnetsData(fakeData)}
