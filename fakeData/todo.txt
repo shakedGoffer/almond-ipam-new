@@ -7,8 +7,7 @@
 - form:
  login form
  check on submit button not disabling on form loading + submitting close dialog
- make dialog always in the middle
- fix dialog width
+
 - project folders
 - doctypeing
 - fix all errors
