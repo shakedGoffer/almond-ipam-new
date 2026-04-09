@@ -96,7 +96,7 @@ const SubnetPage = () => {
         <SearchBar />
         <SubnetDialogForm
           title="Create New Subnet "
-          dialogTriger={
+          dialogTrigger={
             <Button className="gap-1">
               <Plus />
               Create New Subnet
