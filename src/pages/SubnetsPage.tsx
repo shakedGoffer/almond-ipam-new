@@ -1,4 +1,4 @@
-import { ChevronsRight, MoreVertical, Plus } from "lucide-react";
+import { ChevronsRight, MoreVertical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/SearchBar";
 import fakeData from "../../fakeData/fakeData";
@@ -18,8 +18,7 @@ import {
 import DataTableColumnHeader from "@/components/DataTable/DataTableColumnHeader";
 import { DataTable } from "@/components/DataTable/Table";
 import { Link } from "react-router-dom";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import CreateSubnetDialogForm from "@/components/CreateSubnetDialogForm";
+import CreateSubnetDialogForm from "@/components/CreateSubnetDialog";
 
 const SubnetPage = () => {
   // Columns for Subnets DataTable
@@ -88,15 +87,7 @@ const SubnetPage = () => {
     <div className="flex flex-col h-fill w-fill flex-1 gap-6">
       <div className="flex flex-row justify-around w-fill shrink-0 items-center px-1 gap-1">
         <SearchBar />
-        <Dialog>
-          <DialogTrigger asChild className="">
-            <Button className="gap-1">
-              <Plus />
-              Create New Subnet
-            </Button>
-          </DialogTrigger>
-          <CreateSubnetDialogForm title={"Create New Subnet"}/>
-        </Dialog>
+        <CreateSubnetDialogForm />
       </div>
       <DataTable
         columns={subnetsColumns}
