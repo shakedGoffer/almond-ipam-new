@@ -6,6 +6,7 @@ import {useSidebar } from "./SidebarProvider";
 import type React from "react";
 import ExpandButton from "./ExpandButton";
 import SidebarItem from "./SidebarItem";
+import { SidebarProvider } from "./SidebarProvider";
 
 const Sidebar = ({ children }: { children: React.ReactNode }) => {
     const { expanded } = useSidebar();
@@ -31,5 +32,6 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
 }
 
 Sidebar.item = SidebarItem
+Sidebar.provider = SidebarProvider
 
 export default Sidebar;
