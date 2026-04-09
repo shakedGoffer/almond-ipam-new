@@ -1,4 +1,4 @@
-import { ChevronsRight, MoreVertical } from "lucide-react";
+import { ChevronsRight, MoreVertical, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/SearchBar";
 import fakeData from "../../fakeData/fakeData";
@@ -18,7 +18,7 @@ import {
 import DataTableColumnHeader from "@/components/DataTable/DataTableColumnHeader";
 import { DataTable } from "@/components/DataTable/Table";
 import { Link } from "react-router-dom";
-import CreateSubnetDialogForm from "@/components/CreateSubnetDialog";
+import SubnetDialogForm from "@/components/SubnetDialogForm";
 
 const SubnetPage = () => {
   // Columns for Subnets DataTable
@@ -44,7 +44,8 @@ const SubnetPage = () => {
     },
     {
       id: "actions",
-      cell: () => {
+      cell: ({row}) => {
+        const subnet = row .original;
         return (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -54,9 +55,15 @@ const SubnetPage = () => {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="">
-              <DropdownMenuItem>
-                <Edit /> Edite
-              </DropdownMenuItem>
+              <SubnetDialogForm
+                title={`Edit Subnet ${subnet.fullAddress}`}
+                dialogTriger={
+                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                    <Edit /> Edit
+                  </DropdownMenuItem>
+                }
+              />
+
               <DropdownMenuSeparator />
               <DropdownMenuItem className="text-red-500">
                 <Trash />
@@ -87,7 +94,15 @@ const SubnetPage = () => {
     <div className="flex flex-col h-fill w-fill flex-1 gap-6">
       <div className="flex flex-row justify-around w-fill shrink-0 items-center px-1 gap-1">
         <SearchBar />
-        <CreateSubnetDialogForm />
+        <SubnetDialogForm
+          title="Create New Subnet "
+          dialogTriger={
+            <Button className="gap-1">
+              <Plus />
+              Create New Subnet
+            </Button>
+          }
+        />
       </div>
       <DataTable
         columns={subnetsColumns}
