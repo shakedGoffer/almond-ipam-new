@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import fakeData from "../../fakeData/fakeData";
 import {
   formatAddressesData
-} from "@/lib/utils/dataUtils";
+} from "@/lib/utils/formatDate";
 
 import SearchBar from "../components/SearchBar";
 import { Button } from "@/components/ui/button";

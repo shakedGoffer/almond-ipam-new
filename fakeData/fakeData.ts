@@ -1,4 +1,4 @@
-import type { Subnet } from "@/lib/utils/dataUtils";
+import type { Subnet } from "@/lib/utils/formatDate";
 
 const data: Record<string, Subnet> ={
     "20.20.20.0": {

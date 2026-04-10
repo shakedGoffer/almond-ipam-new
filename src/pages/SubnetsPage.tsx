@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/SearchBar";
 import fakeData from "../../fakeData/fakeData";
 
-import { formatSubnetsData } from "../lib/utils/dataUtils";
+import { formatSubnetsData } from "../lib/utils/formatDate";
 
 import { type ColumnDef } from "@tanstack/react-table";
 import { Edit, Trash } from "lucide-react";

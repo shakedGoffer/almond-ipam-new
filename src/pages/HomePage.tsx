@@ -5,7 +5,7 @@ import TotalsPieChart from "@/components/TotalsPieChart";
 import {
   formatSubnetsData,
   countTotalAddresses,
-} from "../lib/utils/dataUtils";
+} from "../lib/utils/formatDate";
 import { DataTable } from "@/components/dataTable/Table";
 import type Subnet from "@/types/subnet";
 
