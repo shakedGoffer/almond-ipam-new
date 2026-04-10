@@ -1,8 +1,4 @@
 - rechsrt
-- type + interface organization & placement
-- drop down menu:
-    trigger button width
-    position (on screen width changes)
 - tooltip
 - form:
  login form
