@@ -1,22 +1,5 @@
-interface Ip {
-    address?: string,
-    address_description: string,
-    mac_address: string,
-    type: "dynamic" | "reserved" | "free",
-}
-
-interface Subnet {
-    address?: string,
-    fullAddress?: string,
-    name: string,
-    description: string,
-    gateway: string,
-    dns_servers: string[],
-    subnet_cidr: number,
-    allocated_ips: Record<string, Ip>,
-    free_ips: Record<string, Ip>,
-    allocated_ips_percent: number,
-}
+import type Address from "@/types/address";
+import type Subnet from "@/types/subnet";
 
 /* Convert Subnets row data to array of subnets & format it */
 const formatSubnetsData = (rowData: Record<string, Subnet>) => {
@@ -28,9 +11,9 @@ const formatSubnetsData = (rowData: Record<string, Subnet>) => {
 };
 
 /* Convert Addresses row data to array of Addresses & format it */
-const formatAddressesData = (rowData: Record<string, Ip>) => {
-    return Object.entries(rowData).map(([address, fullAddress]) => ({
-        address: address,
+const formatAddressesData = (rowData: Record<string, Address>) => {
+    return Object.entries(rowData).map(([addressIP, fullAddress]) => ({
+        ip: addressIP,
         ...fullAddress
     }));
 };
@@ -62,4 +45,4 @@ const countTotalAddresses = (subnetsList: Subnet[]) => {
 };
 
 
-export { formatSubnetsData, countTotalAddresses, formatAddressesData, type Subnet, type Ip };
+export { formatSubnetsData, countTotalAddresses, formatAddressesData};

@@ -5,9 +5,9 @@ import TotalsPieChart from "@/components/TotalsPieChart";
 import {
   formatSubnetsData,
   countTotalAddresses,
-  type Subnet,
 } from "../lib/utils/dataUtils";
 import { DataTable } from "@/components/dataTable/Table";
+import type Subnet from "@/types/subnet";
 
 import { type ColumnDef } from "@tanstack/react-table";
 import { Edit, MoreVertical, Trash } from "lucide-react";

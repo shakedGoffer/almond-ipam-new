@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import SearchBar from "@/components/SearchBar";
 import fakeData from "../../fakeData/fakeData";
 
-import { formatSubnetsData, type Subnet } from "../lib/utils/dataUtils";
+import { formatSubnetsData } from "../lib/utils/dataUtils";
 
 import { type ColumnDef } from "@tanstack/react-table";
 import { Edit, Trash } from "lucide-react";
@@ -20,6 +20,7 @@ import { DataTable } from "@/components/dataTable/Table";
 import { Link } from "react-router-dom";
 import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
 import DeleteConfirmationDialog from "@/components/dialogs/DeleteConfirmationDialog";
+import type Subnet from "@/types/subnet";
 
 const SubnetPage = () => {
   // Columns for Subnets DataTable

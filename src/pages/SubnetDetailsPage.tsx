@@ -1,9 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import fakeData from "../../fakeData/fakeData";
 import {
-  formatAddressesData,
-  type Ip,
-  type Subnet,
+  formatAddressesData
 } from "@/lib/utils/dataUtils";
 
 import SearchBar from "../components/SearchBar";
@@ -34,6 +32,8 @@ import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
 import DeleteConfirmationDialog from "@/components/dialogs/DeleteConfirmationDialog";
 import AddressDialogForm from "@/components/dialogs/AddressDialogForm";
 import { toast } from "sonner";
+import type Address from "@/types/address";
+import type Subnet from "@/types/subnet";
 
 const SubnetDetailsPage = () => {
   const { subnetAddress } = useParams();
@@ -44,7 +44,7 @@ const SubnetDetailsPage = () => {
       : undefined;
 
   // Columns for Addresses DataTable
-  const subnetAddressesColumns: ColumnDef<Ip>[] = [
+  const subnetAddressesColumns: ColumnDef<Address>[] = [
     {
       accessorKey: "address_description",
       header: ({ column }) => (
@@ -85,7 +85,7 @@ const SubnetDetailsPage = () => {
               <AddressDialogForm
                 variant="edit"
                 addressType={address.type}
-                title={`Edit Address ${address.address}`}
+                title={`Edit Address ${address.ip}`}
                 dialogTrigger={
                   <DropdownMenuItem>
                     <Edit /> Edit
@@ -94,7 +94,7 @@ const SubnetDetailsPage = () => {
               />
               <DropdownMenuSeparator />
               <DeleteConfirmationDialog
-                title={`Delete Address ${address.address}`}
+                title={`Delete Address ${address.ip}`}
                 description="This is a permanent action. All Address data will be deleted immediately and cannot be recovered."
                 dialogTrigger={
                   <DropdownMenuItem className="text-red-500">
