@@ -7,7 +7,6 @@ interface SidebarItemProps {
   icon: React.ReactNode;
   text: string;
   link: string;
-  active?: boolean;
 }
 
 const SidebarItem = ({ icon, text, link }: SidebarItemProps) => {
