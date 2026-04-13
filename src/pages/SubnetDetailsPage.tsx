@@ -1,10 +1,7 @@
 import { Link, useParams } from "react-router-dom";
 import fakeData from "../../fakeData/fakeData";
-import {
-  formatAddressesData
-} from "@/lib/utils/formatDate";
+import { formatAddressesData } from "@/lib/utils/formatDate";
 
-import SearchBar from "../components/SearchBar";
 import { Button } from "@/components/ui/button";
 import {
   ChevronsLeft,
@@ -15,7 +12,6 @@ import {
   TrashIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import DataTableColumnHeader from "@/components/dataTable/DataTableColumnHeader";
 
 import { type ColumnDef } from "@tanstack/react-table";
 
@@ -26,7 +22,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { DataTable } from "@/components/dataTable/Table";
 import { Separator } from "@/components/ui/separator";
 import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
 import DeleteConfirmationDialog from "@/components/dialogs/DeleteConfirmationDialog";
@@ -34,6 +29,7 @@ import AddressDialogForm from "@/components/dialogs/AddressDialogForm";
 import { toast } from "sonner";
 import type Address from "@/types/address";
 import type Subnet from "@/types/subnet";
+import DataTable from "@/features/dataTable";
 
 const SubnetDetailsPage = () => {
   const { subnetAddress } = useParams();
@@ -48,25 +44,25 @@ const SubnetDetailsPage = () => {
     {
       accessorKey: "address_description",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Description" />
+        <DataTable.ColumnHeader column={column} sort title="Description" />
       ),
     },
     {
-      accessorKey: "address",
+      accessorKey: "ip",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Address" />
+        <DataTable.ColumnHeader column={column} sort title="Address" />
       ),
     },
     {
       accessorKey: "mac_address",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Mac" />
+        <DataTable.ColumnHeader column={column} sort title="Mac" />
       ),
     },
     {
       accessorKey: "type",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Type" />
+        <DataTable.ColumnHeader column={column} sort title="Type" />
       ),
     },
     {
@@ -134,7 +130,7 @@ const SubnetDetailsPage = () => {
                     title={`Reserve Address`}
                     description={`Reserve Address On Subnet: ${subnetAddress}/${subnet.subnet_cidr}`}
                     dialogTrigger={
-                      <DropdownMenuItem className="text-address-reserved justify-center" >
+                      <DropdownMenuItem className="text-address-reserved justify-center">
                         Reserve Address
                       </DropdownMenuItem>
                     }
@@ -203,14 +199,17 @@ const SubnetDetailsPage = () => {
         </Card>
 
         {/* Address table + search & filter bar */}
-        <div className="flex flex-col gap-4 mt-4">
-          <SearchBar />
-          <DataTable
+
+        <DataTable.Provider className="mt-4">
+          <DataTable.Toolbar className="justify-start">
+            <DataTable.SearchInput />
+            <DataTable.Filter />
+          </DataTable.Toolbar>
+          <DataTable.Content
             columns={subnetAddressesColumns}
             data={formatAddressesData(subnet.allocated_ips)}
-            className="h-full w-full"
           />
-        </div>
+        </DataTable.Provider>
       </div>
     );
   }

@@ -8,33 +8,37 @@ import {
   type SortingState,
   useReactTable,
   type Header,
+  getFilteredRowModel,
 } from "@tanstack/react-table";
 
 import {
-  Table,
   TableBody,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
+  Table,
 } from "@/components/ui/table";
 import { useState } from "react";
-import UsageBar from "../UsageBar";
 import { cn } from "@/lib/utils/cn";
+import { useTableContext } from "./TableProvider";
+import UsageBar from "@/components/UsageBar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   className?: string;
+  searchBar?: boolean;
+  columnFilters?: React.ReactNode;
 }
 
-export function DataTable<TData, TValue>({
+const TableContent = <TData, TValue>({
   columns,
   data,
   className,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
-
+  const { globalFilter, setGlobalFilter } = useTableContext();
   const table = useReactTable({
     data,
     columns,
@@ -42,8 +46,11 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onGlobalFilterChange: setGlobalFilter,
     state: {
       sorting,
+      globalFilter,
     },
   });
 
@@ -88,12 +95,12 @@ export function DataTable<TData, TValue>({
       </Table>
     </div>
   );
-}
+};
 
-function DataTableCell<TData>({ cell }: { cell: Cell<TData, unknown> }) {
+const DataTableCell = <TData,>({ cell }: { cell: Cell<TData, unknown> }) => {
   const cellID = cell.column.id;
   const cellValue = cell.getValue() as string | number;
-  
+
   const cellContent = ({ cellID }: { cellID: string }) => {
     if (cellID === "usage") {
       return <UsageBar usagePercentage={cellValue as number} />;
@@ -124,13 +131,13 @@ function DataTableCell<TData>({ cell }: { cell: Cell<TData, unknown> }) {
       {cellContent({ cellID })}
     </TableCell>
   );
-}
+};
 
-function DataTableHeader<TData>({
+const DataTableHeader = <TData,>({
   header,
 }: {
   header: Header<TData, unknown>;
-}) {
+}) => {
   return (
     <TableHead key={header.id} className="p-1 ">
       {header.isPlaceholder
@@ -138,4 +145,6 @@ function DataTableHeader<TData>({
         : flexRender(header.column.columnDef.header, header.getContext())}
     </TableHead>
   );
-}
+};
+
+export default TableContent;

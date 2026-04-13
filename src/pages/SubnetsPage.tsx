@@ -1,6 +1,5 @@
 import { ChevronsRight, MoreVertical, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import SearchBar from "@/components/SearchBar";
 import fakeData from "../../fakeData/fakeData";
 
 import { formatSubnetsData } from "../lib/utils/formatDate";
@@ -15,38 +14,42 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DataTableColumnHeader from "@/components/dataTable/DataTableColumnHeader";
-import { DataTable } from "@/components/dataTable/Table";
 import { Link } from "react-router-dom";
 import SubnetDialogForm from "@/components/dialogs/SubnetDialogForm";
 import DeleteConfirmationDialog from "@/components/dialogs/DeleteConfirmationDialog";
 import type Subnet from "@/types/subnet";
+
+import DataTable from "@/features/dataTable";
 
 const SubnetPage = () => {
   // Columns for Subnets DataTable
   const subnetsColumns: ColumnDef<Subnet>[] = [
     {
       accessorKey: "name",
+      enableGlobalFilter: true,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Name" />
+        <DataTable.ColumnHeader column={column} sort title="Name" />
       ),
     },
     {
       accessorKey: "fullAddress",
+      enableGlobalFilter: true,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Address" />
+        <DataTable.ColumnHeader column={column} sort title="Address" />
       ),
     },
     {
       id: "usage",
       accessorKey: "allocated_ips_percent",
+      enableGlobalFilter: false,
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Usage" />
+        <DataTable.ColumnHeader column={column} sort title="Usage" />
       ),
     },
     {
       /* Drop Down "More Actions" (with delete & edit) */
       id: "actions",
+      enableGlobalFilter: false,
       cell: ({ row }) => {
         const subnet = row.original;
         return (
@@ -102,28 +105,31 @@ const SubnetPage = () => {
   ];
 
   return (
-    <div className="flex flex-col flex-1 min-w-min flex-1 gap-6">
-      {/* Top section - search + filter bar + create subnet dialog */}
-      <div className="flex flex-row justify-around items-center gap-2">
-        <SearchBar />
-        <SubnetDialogForm
-          variant="create"
-          title="Create New Subnet "
-          dialogTrigger={
-            <Button className="gap-1">
-              <Plus />
-              Create New Subnet
-            </Button>
-          }
+
+      <DataTable.Provider className="flex-1 min-w-min gap-6">
+        <DataTable.Toolbar>
+          <div className="flex flex-row gap-2">
+            <DataTable.SearchInput />
+            <DataTable.Filter />
+          </div>
+          <SubnetDialogForm
+            variant="create"
+            title="Create New Subnet "
+            dialogTrigger={
+              <Button className="gap-1">
+                <Plus />
+                Create New Subnet
+              </Button>
+            }
+          />
+        </DataTable.Toolbar>
+        <DataTable.Content
+          columns={subnetsColumns}
+          data={formatSubnetsData(fakeData)}
+          className="h-full"
         />
-      </div>
-      {/* All Subnets table */}
-      <DataTable
-        columns={subnetsColumns}
-        data={formatSubnetsData(fakeData)}
-        className="h-full w-full"
-      />
-    </div>
+      </DataTable.Provider>
+  
   );
 };
 

@@ -4,31 +4,28 @@ import { ChevronDown, ChevronsUpDown, ChevronUp } from "lucide-react";
 import { cn } from "@/lib/utils/cn";
 import { Button } from "@/components/ui/button";
 
-interface DataTableColumnHeaderProps<
-  TData,
-  TValue,
-> extends React.HTMLAttributes<HTMLDivElement> {
+interface DataTableColumnsProps<TData,TValue,> extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;
   title: string;
   sort?: boolean;
 }
 
-function DataTableColumnHeader<TData, TValue>({
+const TableColumnHeader = <TData, TValue>({
   column,
   title,
   sort,
   className,
-}: DataTableColumnHeaderProps<TData, TValue>) {
+}: DataTableColumnsProps<TData, TValue>) => {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }
 
   return (
-    <div className={cn("flex flex-row items-center gap-2", className)}>
+    <div className={cn("flex flex-row items-center gap-2 m-1 ", className)}>
       {sort && (
         <Button
           variant="ghost"
-          className="p-3"
+          className="px-3 py-2.5"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           <span>{title}</span>
@@ -41,9 +38,9 @@ function DataTableColumnHeader<TData, TValue>({
           )}
         </Button>
       )}
-      {!sort && <span>{title}</span>}
+      {!sort && <span className="px-3 py-2.5">{title}</span>}
     </div>
   );
-}
+};
 
-export default DataTableColumnHeader;
+export default TableColumnHeader;
