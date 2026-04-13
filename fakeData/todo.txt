@@ -1,9 +1,8 @@
 - rechsrt
 - home page
 - backround dark mode
-- form:
- login form
- check on submit button not disabling on form loading + submitting close dialog
+- filter fata:
+    position + component/file orginization
 
 - project folders
 - doctypeing
