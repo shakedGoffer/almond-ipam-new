@@ -122,10 +122,10 @@ const DataTableCell = <TData,>({ cell }: { cell: Cell<TData, unknown> }) => {
   return (
     <TableCell
       className={cn(
-        "px-6 min-w-36",
+        "px-6 max-w-92 truncate min-w-min",
         cellID === "usage" && "min-w-50",
         (cellID === "actions" || cellID === "more") &&
-          "w-fit text-center px-2 min-w-0 w-10",
+          "w-fit text-center px-2 w-10",
       )}
     >
       {cellContent({ cellID })}

@@ -21,19 +21,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import DataTable from "@/features/dataTable";
 
-
 const HomePage = () => {
   const subnetsColumns: ColumnDef<Subnet>[] = [
     {
-      accessorKey: "name",
+      accessorKey: "fullAddress",
       header: ({ column }) => (
-        <DataTable.ColumnHeader column={column}  title="Name" />
+        <DataTable.ColumnHeader column={column} title="Address" />
       ),
     },
     {
-      accessorKey: "fullAddress",
+      accessorKey: "name",
       header: ({ column }) => (
-        <DataTable.ColumnHeader column={column}  title="Address" />
+        <DataTable.ColumnHeader column={column} title="Name" />
       ),
     },
     {
@@ -100,7 +99,7 @@ const HomePage = () => {
           Top 10 Subnets By Usage
         </h1>
 
-        <DataTable.Provider >
+        <DataTable.Provider>
           <DataTable.Content columns={subnetsColumns} data={subnetsList} />
         </DataTable.Provider>
       </div>

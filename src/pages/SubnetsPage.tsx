@@ -25,6 +25,13 @@ const SubnetPage = () => {
   // Columns for Subnets DataTable
   const subnetsColumns: ColumnDef<Subnet>[] = [
     {
+      accessorKey: "fullAddress",
+      enableGlobalFilter: true,
+      header: ({ column }) => (
+        <DataTable.ColumnHeader column={column} sort title="Address" />
+      ),
+    },
+    {
       accessorKey: "name",
       enableGlobalFilter: true,
       header: ({ column }) => (
@@ -32,10 +39,10 @@ const SubnetPage = () => {
       ),
     },
     {
-      accessorKey: "fullAddress",
+      accessorKey: "description",
       enableGlobalFilter: true,
       header: ({ column }) => (
-        <DataTable.ColumnHeader column={column} sort title="Address" />
+        <DataTable.ColumnHeader column={column} sort title="Description" />
       ),
     },
     {
