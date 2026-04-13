@@ -5,9 +5,8 @@ import TotalsPieChart from "@/components/TotalsPieChart";
 import {
   formatSubnetsData,
   countTotalAddresses,
-  type Subnet,
-} from "../lib/utils/dataUtils";
-import { DataTable } from "@/components/dataTable/Table";
+} from "../lib/utils/formatDate";
+import type Subnet from "@/types/subnet";
 
 import { type ColumnDef } from "@tanstack/react-table";
 import { Edit, MoreVertical, Trash } from "lucide-react";
@@ -20,28 +19,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import DataTableColumnHeader from "@/components/dataTable/DataTableColumnHeader";
+import DataTable from "@/features/dataTable";
 
 const HomePage = () => {
-
   const subnetsColumns: ColumnDef<Subnet>[] = [
-    {
-      accessorKey: "name",
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Name" />
-      ),
-    },
     {
       accessorKey: "fullAddress",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Address" />
+        <DataTable.ColumnHeader column={column} title="Address" />
+      ),
+    },
+    {
+      accessorKey: "name",
+      header: ({ column }) => (
+        <DataTable.ColumnHeader column={column} title="Name" />
       ),
     },
     {
       id: "usage",
       accessorKey: "allocated_ips_percent",
       header: ({ column }) => (
-        <DataTableColumnHeader column={column} sort title="Usage" />
+        <DataTable.ColumnHeader column={column} sort title="Usage" />
       ),
     },
     {
@@ -100,7 +98,10 @@ const HomePage = () => {
         <h1 className="text-xl font-bold mb-4 text-center text-primary-text">
           Top 10 Subnets By Usage
         </h1>
-        <DataTable columns={subnetsColumns} data={subnetsList} />
+
+        <DataTable.Provider>
+          <DataTable.Content columns={subnetsColumns} data={subnetsList} />
+        </DataTable.Provider>
       </div>
     </div>
   );

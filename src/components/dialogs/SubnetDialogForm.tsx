@@ -13,57 +13,63 @@ import { BookOpen, Globe, Network, Server } from "lucide-react";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-// Zod schema for form validation
-const CreateSubnetFormSchema = z.object({
-  subnetName: z.string().min(3, "Subnet name must be at least 3 characters"),
-  subnetDescription: z
-    .string()
-    .max(100, "Subnet description must be less than 100 characters")
-    .optional(),
-  subnetAddress: z.ipv4(),
-  subnetCIDR: z.coerce.number().int().gte(4).lte(32),
-  subnetGateway: z.ipv4(),
-  // Custom validation for DNS servers - allow empty (optional field) or a list of IPv4 addresses (separated by commas)
-  dnsServers: z.string().refine((value) => {
-    if (!value) return true;
-    const servers = value.split(",").map((s) => s.trim());
-    return servers.every((s) => z.ipv4().safeParse(s).success);
-  }, "Invalid DNS servers IPv4 addresses format (Notice: you can usa a comma to include addresses)"),
-});
-
-type SubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
+import { toast } from "sonner";
+import { useState } from "react";
 
 interface SubnetDialogFormProps {
   title: string;
+  variant: "create" | "edit";
   description?: string;
   dialogTrigger: React.ReactNode;
 }
 
 /* Dialog Form for creating a new subnet and editing existing subnets */
-const SubnetDialogForm = ({ title, description, dialogTrigger }: SubnetDialogFormProps) => {
-  const form = useForm({
-    resolver: zodResolver(CreateSubnetFormSchema),
+const SubnetDialogForm = ({ title, variant, description, dialogTrigger }: SubnetDialogFormProps) => {
+  const [dialogOpen, setDialogOpen] = useState(false); // Dialog Open state var
+  
+  // Zod schema for form validation
+  const SubnetFormSchema = z.object({
+    subnetName: z.string().min(3, "Subnet name must be at least 3 characters"),
+    subnetDescription: z
+      .string()
+      .max(100, "Subnet description must be less than 100 characters")
+      .optional(),
+    subnetAddress: z.ipv4(),
+    subnetCIDR: z.coerce.number().int().gte(4).lte(32),
+    subnetGateway: z.ipv4(),
+    // Custom validation for DNS servers - allow empty (optional field) or a list of IPv4 addresses (separated by commas)
+    dnsServers: z.string().refine((value) => {
+      if (!value) return true;
+      const servers = value.split(",").map((s) => s.trim());
+      return servers.every((s) => z.ipv4().safeParse(s).success);
+    }, "Invalid DNS servers IPv4 addresses format (Notice: you can usa a comma to include addresses)"),
   });
 
-  const onSubmit: SubmitHandler<SubnetFormSchemaType> = (data) => {
-    console.log(data);
+  const form = useForm({resolver: zodResolver(SubnetFormSchema),});
+
+
+
+  const onSubmit: SubmitHandler<z.infer<typeof SubnetFormSchema>> = async (data,) => {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    setDialogOpen(false);
+    console.log("Form Data:", data);
+    toast.success("Subnet created successfully! - " + variant);
+    form.reset();
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        {dialogTrigger}
-      </DialogTrigger>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <DialogTrigger asChild>{dialogTrigger}</DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            {title} 
-          </DialogTitle>
+          <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <form onSubmit={form.handleSubmit(onSubmit)}  className="flex flex-col gap-6">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-6"
+        >
           <div className="flex flex-col gap-4">
             <FormInput
               {...form.register("subnetName", {
@@ -87,6 +93,7 @@ const SubnetDialogForm = ({ title, description, dialogTrigger }: SubnetDialogFor
                   {...form.register("subnetAddress")}
                   error={form.formState.errors.subnetAddress?.message}
                   label="Subnet Address"
+                  className="min-w-87"
                   placeholder="1.1.1.0..."
                 />
               </div>
@@ -95,9 +102,8 @@ const SubnetDialogForm = ({ title, description, dialogTrigger }: SubnetDialogFor
                 {...form.register("subnetCIDR")}
                 error={form.formState.errors.subnetCIDR?.message}
                 label="CIDR"
-                className="w-14"
+                className="w-20"
                 placeholder="24..."
-                type="number"
               />
             </div>
             <FormInput
@@ -121,7 +127,6 @@ const SubnetDialogForm = ({ title, description, dialogTrigger }: SubnetDialogFor
                 type="submit"
                 variant="form"
                 disabled={form.formState.isSubmitting}
-                onClick={form.handleSubmit(onSubmit)}
                 className="flex flex-1 "
               >
                 {form.formState.isSubmitting ? "Loading..." : "Submit"}

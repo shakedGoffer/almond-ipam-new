@@ -1,13 +1,9 @@
 - rechsrt
-- drop down menu:
-    trigger button width
-    position (on screen width changes)
-- tooltip
-- form:
- login form
- check on submit button not disabbleing on form loding + submiting close dialog
- make dialog always in the middle
- fix dialog width
+- home page
+- backround dark mode
+- filter fata:
+    position + component/file orginization
+
 - project folders
 - doctypeing
 - fix all errors

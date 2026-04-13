@@ -1,4 +1,7 @@
-const data ={
+import type Subnet from "@/types/subnet";
+
+
+const data: Record<string, Subnet> ={
     "20.20.20.0": {
         "name": "test1",
         "description": "test description",

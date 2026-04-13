@@ -44,16 +44,16 @@ const AddressAvailability = ({
 
         <div className="text-primary-text mt-auto mt-4">
           <ul className="flex flex-1 flex-row justify-around gap-12">
-            {data.map((ipType) => (
-              <li key={ipType.name}>
+            {data.map((addressType) => (
+              <li key={addressType.name}>
                 <div className="flex items-center gap-2 text-sm">
                   <div
                     className="size-[14px] rounded-[3px]"
-                    style={{ backgroundColor: `${ipType.fill}` }}
+                    style={{ backgroundColor: `${addressType.fill}` }}
                   />
-                  <span className="capitalize text-lg">{ipType.value}</span>
+                  <span className="capitalize text-lg">{addressType.value}</span>
                 </div>
-                <span className="capitalize text-xs">{ipType.name} </span>
+                <span className="capitalize text-xs">{addressType.name} </span>
               </li>
             ))}
           </ul>

@@ -13,46 +13,63 @@ import { BookOpen, MapPinHouse, MonitorCog } from "lucide-react";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-// Zod schema for form validation
-const CreateSubnetFormSchema = z.object({
-  addressDescription: z.string(),
-  addressMAC: z.mac(),
-  addressIP:z.ipv4(),
-});
-
-type CreateSubnetFormSchemaType = z.infer<typeof CreateSubnetFormSchema>;
+import { toast } from "sonner";
+import { useState } from "react";
 
 interface AddressDialogFormProps {
   title: string;
+  variant: "create" | "edit";
+  addressType: "dynamic" | "reserved" | "free";
   description?: string;
   dialogTrigger: React.ReactNode;
 }
 
 /* Dialog Form for creating a new subnet and editing existing subnets */
-const AddressDialogForm = ({ title, description, dialogTrigger }: AddressDialogFormProps) => {
-  const form = useForm({
-    resolver: zodResolver(CreateSubnetFormSchema),
+const AddressDialogForm = ({title, description, variant, addressType, dialogTrigger,}: AddressDialogFormProps) => {
+  
+  const [dialogOpen, setDialogOpen] = useState(false); // Dialog Open state var
+
+  // Zod schema for form validation
+  const AddressFormSchema = z.object({
+    addressDescription: z.string(),
+    addressMAC: z.mac(),
+    addressIP: z.refine((value) => {
+      if (variant === "edit" || addressType === "dynamic") return true;
+      return z.ipv4().safeParse(value).success;
+    }),
   });
 
-  const onSubmit: SubmitHandler<CreateSubnetFormSchemaType> = (data) => {
-    console.log(data);
+  const form = useForm({ resolver: zodResolver(AddressFormSchema) });
+
+  const onSubmit: SubmitHandler<z.infer<typeof AddressFormSchema>> = async (data) => {
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+    setDialogOpen(false)
+    console.log("Form Data:", data);
+    toast.success("Subnet created successfully!");
+    form.reset();
   };
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        {dialogTrigger}
-      </DialogTrigger>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      <DialogTrigger asChild>{dialogTrigger}</DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            {title} 
-          </DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription
+            className={
+              addressType === "reserved"
+                ? "text-address-reserved"
+                : "text-address-dynamic"
+            }
+          >
+            {description}
+          </DialogDescription>
         </DialogHeader>
-        <form onSubmit={form.handleSubmit(onSubmit)}  className="flex flex-col gap-6">
+        <form
+          className="flex flex-col gap-6"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <div className="flex flex-col gap-4">
             <FormInput
               {...form.register("addressDescription")}
@@ -62,7 +79,7 @@ const AddressDialogForm = ({ title, description, dialogTrigger }: AddressDialogF
               placeholder="Description..."
             />
 
-             <FormInput
+            <FormInput
               {...form.register("addressMAC")}
               error={form.formState.errors.addressMAC?.message}
               label="Address MAC"
@@ -70,23 +87,20 @@ const AddressDialogForm = ({ title, description, dialogTrigger }: AddressDialogF
               placeholder="05:B8:TT..."
             />
 
-            <FormInput
-              {...form.register("addressIP")}
-              error={form.formState.errors.addressIP?.message}
-              label="Address IP"
-              icon={<MapPinHouse className="size-5" />}
-              placeholder="1.1.1.15..."
-            />
+            {addressType == "reserved" && variant != "edit" && (
+              <FormInput
+                {...form.register("addressIP")}
+                error={form.formState.errors.addressIP?.message}
+                label="Address IP"
+                icon={<MapPinHouse className="size-5" />}
+                placeholder="1.1.1.15..."
+              />
+            )}
           </div>
+
           <div className="flex flex-col gap-2">
             <div className="flex flex-row flex-1 gap-4">
-              <Button
-                type="submit"
-                variant="form"
-                disabled={form.formState.isSubmitting}
-                onClick={form.handleSubmit(onSubmit)}
-                className="flex flex-1 "
-              >
+              <Button type="submit" variant="form" className="flex flex-1 ">
                 {form.formState.isSubmitting ? "Loading..." : "Submit"}
               </Button>
             </div>

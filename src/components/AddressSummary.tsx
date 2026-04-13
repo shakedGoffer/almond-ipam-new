@@ -39,13 +39,13 @@ const AddressSummary = ({
         <SummeryBarChart data={data} className="w-48 h-40" />
         <div className="flex flex-col text-primary-text gap-4">
           <ul className="gap-1 flex flex-col">
-            {data.map((ipType) => (
-              <li key={ipType.name} className="flex items-center gap-2 text-sm">
+            {data.map((addressType) => (
+              <li key={addressType.name} className="flex items-center gap-2 text-sm">
                 <div
                   className="size-[14px] rounded-[3px]"
-                  style={{ backgroundColor: `${ipType.fill}` }}
+                  style={{ backgroundColor: `${addressType.fill}` }}
                 />
-                <span className="capitalize">{ipType.name} Addresses</span>
+                <span className="capitalize">{addressType.name} Addresses</span>
               </li>
             ))}
           </ul>
